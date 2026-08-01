@@ -12,16 +12,82 @@
       background: var(--bg-soft);
       border-left: 2px solid var(--ink-faint);
       padding: 14px 20px;
-      margin-bottom: 56px;
+      margin-bottom: 48px;
       font-size: 0.8rem;
       color: var(--ink-faint);
       line-height: 1.6;
     }
 
+    /* ── Watchlist Controls ── */
+    .watchlist-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .period-tabs {
+      display: flex;
+      gap: 2px;
+      background: var(--bg-soft);
+      padding: 3px;
+      border-radius: 6px;
+    }
+
+    .period-btn {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      padding: 5px 10px;
+      border: none;
+      background: none;
+      color: var(--ink-light);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .period-btn.active {
+      background: var(--bg);
+      color: var(--ink);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .mode-toggle {
+      display: flex;
+      gap: 2px;
+      background: var(--bg-soft);
+      padding: 3px;
+      border-radius: 6px;
+    }
+
+    .mode-btn {
+      font-size: 0.72rem;
+      font-weight: 400;
+      padding: 5px 14px;
+      border: none;
+      background: none;
+      color: var(--ink-light);
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: all 0.15s;
+    }
+
+    .mode-btn.active {
+      background: var(--bg);
+      color: var(--ink);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
     /* ── Watchlist Table ── */
     .watchlist-header {
       display: grid;
-      grid-template-columns: 100px 1fr 110px 110px;
+      grid-template-columns: 120px 1fr 130px;
       gap: 16px;
       padding: 0 0 12px;
       border-bottom: 1px solid var(--line);
@@ -35,13 +101,17 @@
       color: var(--ink-faint);
     }
 
+    .watchlist-header span:last-child {
+      text-align: right;
+    }
+
     .stock-row {
       display: grid;
-      grid-template-columns: 100px 1fr 110px 110px;
+      grid-template-columns: 120px 1fr 130px;
       gap: 16px;
       padding: 28px 0;
       border-bottom: 1px solid var(--line);
-      align-items: start;
+      align-items: center;
       transition: background 0.15s;
     }
 
@@ -62,6 +132,21 @@
       letter-spacing: 0.02em;
     }
 
+    .conviction-dots {
+      display: flex;
+      gap: 4px;
+      margin-top: 10px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    .dot.filled { background: var(--accent); }
+
     .stock-thesis h3 {
       font-family: var(--font-serif);
       font-size: 1.05rem;
@@ -76,60 +161,57 @@
       line-height: 1.7;
     }
 
-    .stock-price {
+    /* ── Price + Delta ── */
+    .stock-price-col {
+      text-align: right;
+    }
+
+    .stock-current-price {
       font-family: var(--font-serif);
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       color: var(--ink);
-      text-align: right;
+      line-height: 1;
+      margin-bottom: 8px;
     }
 
-    .stock-price .price-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .stock-current-price.loading {
       color: var(--ink-faint);
-      display: block;
-      margin-bottom: 4px;
-      text-align: right;
-    }
-
-    .price-loading {
-      font-size: 0.8rem;
-      color: var(--ink-faint);
+      font-size: 0.82rem;
+      font-family: var(--font-sans);
       font-style: italic;
     }
 
-    .stock-conviction {
-      text-align: right;
+    .delta-pill {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 400;
+      padding: 3px 9px;
+      border-radius: 20px;
+      line-height: 1.4;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
     }
 
-    .conviction-bar {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
+    .delta-pill.positive {
+      background: #E3F5EC;
+      color: #166534;
     }
 
-    .conviction-label {
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .delta-pill.negative {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    .delta-pill.neutral {
+      background: var(--bg-soft);
       color: var(--ink-faint);
     }
 
-    .conviction-dots {
-      display: flex;
-      gap: 4px;
+    .delta-pill.loading {
+      background: var(--bg-soft);
+      color: var(--ink-faint);
+      font-style: italic;
     }
-
-    .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--line);
-    }
-
-    .dot.filled { background: var(--accent); }
 
     /* ── Notes section ── */
     .market-notes {
@@ -177,10 +259,12 @@
     @media (max-width: 640px) {
       .watchlist-header,
       .stock-row {
-        grid-template-columns: 80px 1fr;
+        grid-template-columns: 90px 1fr;
       }
-      .stock-price, .stock-conviction { display: none; }
+      .stock-price-col { display: none; }
       .note-entry { grid-template-columns: 1fr; gap: 8px; }
+      .watchlist-controls { gap: 8px; }
+      .period-btn { padding: 5px 7px; }
     }
   </style>
 </head>
@@ -235,12 +319,28 @@
         Nothing on this page constitutes financial advice. These are personal notes on companies I find interesting. Do your own research.
       </div>
 
-      <!-- Watchlist -->
+      <!-- Period + Mode Controls -->
+      <div class="watchlist-controls">
+        <div class="period-tabs">
+          <button class="period-btn active" onclick="setPeriod('1D', this)">1D</button>
+          <button class="period-btn" onclick="setPeriod('1W', this)">1W</button>
+          <button class="period-btn" onclick="setPeriod('1M', this)">1M</button>
+          <button class="period-btn" onclick="setPeriod('3M', this)">3M</button>
+          <button class="period-btn" onclick="setPeriod('6M', this)">6M</button>
+          <button class="period-btn" onclick="setPeriod('YTD', this)">YTD</button>
+          <button class="period-btn" onclick="setPeriod('1Y', this)">1Y</button>
+        </div>
+        <div class="mode-toggle">
+          <button class="mode-btn active" onclick="setMode('$', this)">$</button>
+          <button class="mode-btn" onclick="setMode('%', this)">%</button>
+        </div>
+      </div>
+
+      <!-- Watchlist Header -->
       <div class="watchlist-header">
         <span>Ticker</span>
         <span>Thesis</span>
-        <span style="text-align:right">Price</span>
-        <span style="text-align:right">Conviction</span>
+        <span>Price / Change</span>
       </div>
 
       <!-- AMD -->
@@ -248,26 +348,19 @@
         <div>
           <div class="stock-ticker">AMD</div>
           <div class="stock-name">Adv. Micro Devices</div>
+          <div class="conviction-dots">
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot"></div>
+          </div>
         </div>
         <div class="stock-thesis">
           <h3>The GPU challenger</h3>
           <p>MI300 series gaining traction with hyperscalers. Watching market share against NVDA in AI inference workloads. Valuation more reasonable than peers.</p>
         </div>
-        <div class="stock-price">
-          <span class="price-label">Last</span>
-          <span id="price-AMD" class="price-loading">—</span>
-        </div>
-        <div class="stock-conviction">
-          <div class="conviction-bar">
-            <span class="conviction-label">Conviction</span>
-            <div class="conviction-dots">
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot"></div>
-            </div>
-          </div>
+        <div class="stock-price-col">
+          <div class="stock-current-price loading" id="price-AMD">Loading…</div>
+          <span class="delta-pill loading" id="delta-AMD">…</span>
         </div>
       </div>
 
@@ -276,26 +369,19 @@
         <div>
           <div class="stock-ticker">NVDA</div>
           <div class="stock-name">NVIDIA Corp.</div>
+          <div class="conviction-dots">
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot filled"></div>
+          </div>
         </div>
         <div class="stock-thesis">
           <h3>The AI infrastructure backbone</h3>
           <p>Still the dominant pick-and-shovel play in AI. Blackwell demand appears strong. The question is how long the moat holds as competition intensifies.</p>
         </div>
-        <div class="stock-price">
-          <span class="price-label">Last</span>
-          <span id="price-NVDA" class="price-loading">—</span>
-        </div>
-        <div class="stock-conviction">
-          <div class="conviction-bar">
-            <span class="conviction-label">Conviction</span>
-            <div class="conviction-dots">
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-            </div>
-          </div>
+        <div class="stock-price-col">
+          <div class="stock-current-price loading" id="price-NVDA">Loading…</div>
+          <span class="delta-pill loading" id="delta-NVDA">…</span>
         </div>
       </div>
 
@@ -304,26 +390,19 @@
         <div>
           <div class="stock-ticker">AVGO</div>
           <div class="stock-name">Broadcom Inc.</div>
+          <div class="conviction-dots">
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot"></div>
+          </div>
         </div>
         <div class="stock-thesis">
           <h3>Custom silicon + software flywheel</h3>
           <p>VMware integration tracking well. Custom AI ASIC business (XPU) growing fast with hyperscaler clients. Diversified revenue makes it a steadier AI play.</p>
         </div>
-        <div class="stock-price">
-          <span class="price-label">Last</span>
-          <span id="price-AVGO" class="price-loading">—</span>
-        </div>
-        <div class="stock-conviction">
-          <div class="conviction-bar">
-            <span class="conviction-label">Conviction</span>
-            <div class="conviction-dots">
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot"></div>
-            </div>
-          </div>
+        <div class="stock-price-col">
+          <div class="stock-current-price loading" id="price-AVGO">Loading…</div>
+          <span class="delta-pill loading" id="delta-AVGO">…</span>
         </div>
       </div>
 
@@ -332,26 +411,19 @@
         <div>
           <div class="stock-ticker">LRCX</div>
           <div class="stock-name">Lam Research</div>
+          <div class="conviction-dots">
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot filled"></div><div class="dot"></div>
+            <div class="dot"></div>
+          </div>
         </div>
         <div class="stock-thesis">
           <h3>Semiconductor equipment leverage</h3>
           <p>Critical equipment for memory and logic fab. Benefits from any upturn in NAND/DRAM capex. Watching China exposure and export control risk closely.</p>
         </div>
-        <div class="stock-price">
-          <span class="price-label">Last</span>
-          <span id="price-LRCX" class="price-loading">—</span>
-        </div>
-        <div class="stock-conviction">
-          <div class="conviction-bar">
-            <span class="conviction-label">Conviction</span>
-            <div class="conviction-dots">
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-            </div>
-          </div>
+        <div class="stock-price-col">
+          <div class="stock-current-price loading" id="price-LRCX">Loading…</div>
+          <span class="delta-pill loading" id="delta-LRCX">…</span>
         </div>
       </div>
 
@@ -359,27 +431,20 @@
       <div class="stock-row">
         <div>
           <div class="stock-ticker">SKHY</div>
-          <div class="stock-name">SkyHigh Networks</div>
+          <div class="stock-name">SK hynix Inc.</div>
+          <div class="conviction-dots">
+            <div class="dot filled"></div><div class="dot filled"></div>
+            <div class="dot"></div><div class="dot"></div>
+            <div class="dot"></div>
+          </div>
         </div>
         <div class="stock-thesis">
           <h3>Emerging position</h3>
           <p>Early stage watch. Monitoring for catalyst before sizing up. Thesis still forming — will update as picture clarifies.</p>
         </div>
-        <div class="stock-price">
-          <span class="price-label">Last</span>
-          <span id="price-SKHY" class="price-loading">—</span>
-        </div>
-        <div class="stock-conviction">
-          <div class="conviction-bar">
-            <span class="conviction-label">Conviction</span>
-            <div class="conviction-dots">
-              <div class="dot filled"></div>
-              <div class="dot filled"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-            </div>
-          </div>
+        <div class="stock-price-col">
+          <div class="stock-current-price loading" id="price-SKHY">Loading…</div>
+          <span class="delta-pill loading" id="delta-SKHY">…</span>
         </div>
       </div>
 
@@ -450,7 +515,86 @@
   </div>
 
   <script>
-    /* Prices shown via TradingView ticker tape above */
+    /* ── Stock Data & State ── */
+    const TICKERS = ['AMD', 'NVDA', 'AVGO', 'LRCX', 'SKHY'];
+    let stockData = {};
+    let activePeriod = '1D';
+    let activeMode = '$';
+
+    async function fetchStock(ticker) {
+      try {
+        const res = await fetch(`/api/stock/${ticker}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+      } catch(e) {
+        return { error: e.message };
+      }
+    }
+
+    function renderDelta(ticker) {
+      const data = stockData[ticker];
+      const priceEl = document.getElementById(`price-${ticker}`);
+      const deltaEl = document.getElementById(`delta-${ticker}`);
+      if (!priceEl || !deltaEl) return;
+
+      if (!data || data.error) {
+        priceEl.textContent = '—';
+        priceEl.className = 'stock-current-price loading';
+        deltaEl.textContent = '—';
+        deltaEl.className = 'delta-pill neutral';
+        return;
+      }
+
+      // Price
+      priceEl.textContent = '$' + data.price.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      priceEl.className = 'stock-current-price';
+
+      // Delta
+      const periodData = data[activePeriod];
+      if (!periodData) {
+        deltaEl.textContent = '—';
+        deltaEl.className = 'delta-pill neutral';
+        return;
+      }
+
+      const raw = activeMode === '$' ? periodData.dollar : periodData.percent;
+      const isPositive = raw >= 0;
+      const formatted = activeMode === '$'
+        ? `${isPositive ? '+' : ''}$${Math.abs(raw).toFixed(2)}`
+        : `${isPositive ? '+' : ''}${raw.toFixed(2)}%`;
+
+      deltaEl.textContent = formatted;
+      deltaEl.className = `delta-pill ${isPositive ? 'positive' : 'negative'}`;
+    }
+
+    function renderAll() {
+      TICKERS.forEach(t => renderDelta(t));
+    }
+
+    async function loadAll() {
+      const results = await Promise.all(TICKERS.map(t => fetchStock(t)));
+      results.forEach((data, i) => { stockData[TICKERS[i]] = data; });
+      renderAll();
+    }
+
+    function setPeriod(period, btn) {
+      activePeriod = period;
+      document.querySelectorAll('.period-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderAll();
+    }
+
+    function setMode(mode, btn) {
+      activeMode = mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderAll();
+    }
+
+    loadAll();
 
     /* ── Modal ── */
     function openModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
