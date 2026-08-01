@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Y. Khan</title>
+  <meta name="description" content="Poetry, music, markets, and ideas — by Yousuf Khan." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Hero ── */
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 0 60px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 28px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      max-width: 700px;
+    }
+
+    .hero-sub {
+      margin-top: 28px;
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      font-weight: 300;
+      max-width: 420px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-sans);
+    }
+
+    .hero-cta.primary {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .hero-cta.primary:hover { opacity: 0.8; }
+
+    .hero-cta.secondary {
+      background: none;
+      border: 1px solid var(--line);
+      color: var(--ink-light);
+    }
+
+    .hero-cta.secondary:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    /* ── Section Index ── */
+    .section-index {
+      border-top: 1px solid var(--line);
+      padding: 80px 0;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 48px;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .section-card {
+      background: var(--bg);
+      padding: 48px 40px;
+      text-decoration: none;
+      display: block;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .section-card:hover { background: var(--bg-soft); }
+
+    .section-card:hover .card-arrow { opacity: 1; transform: translate(0, 0); }
+
+    .card-number {
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      color: var(--ink-faint);
+      margin-bottom: 24px;
+    }
+
+    .card-icon {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    .card-arrow {
+      position: absolute;
+      bottom: 32px;
+      right: 32px;
+      font-size: 1.2rem;
+      color: var(--accent);
+      opacity: 0;
+      transform: translate(-6px, 6px);
+      transition: all 0.25s;
+    }
+
+    /* ── About strip ── */
+    .about-strip {
+      padding: 80px 0;
+      display: flex;
+      gap: 64px;
+      align-items: flex-start;
+      border-top: 1px solid var(--line);
+    }
+
+    .about-strip .label { flex-shrink: 0; }
+
+    .about-text {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--ink);
+      max-width: 560px;
+    }
+
+    /* ── Contact ── */
+    .contact-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-left h2 {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .contact-left p {
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      line-height: 1.8;
+    }
+
+    .contact-form .form-group {
+      margin-bottom: 18px;
+    }
+
+    .contact-form label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 7px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.93rem;
+      font-weight: 300;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: var(--accent); }
+
+    .contact-success {
+      display: none;
+      padding: 24px;
+      background: var(--bg-soft);
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .contact-success p {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+
+    @media (max-width: 640px) {
+      .section-grid { grid-template-columns: 1fr; }
+      .about-strip { flex-direction: column; gap: 24px; }
+      .section-card { padding: 36px 24px; }
+      .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">Y. Khan</a>
+    <ul class="nav-links">
+      <li><a href="poetry.html">Poetry</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="stocks.html">Markets</a></li>
+    </ul>
+    <button class="nav-subscribe" onclick="openModal()">Subscribe</button>
+  </nav>
+
+  <div class="page">
+    <div class="container">
+
+      <!-- Hero -->
+      <section class="hero">
+        <p class="hero-eyebrow">ykhan.org</p>
+        <h1>Words, sound,<br>and signal.</h1>
+        <p class="hero-sub">A personal space for poetry, music I love, and thoughts on the markets — by Yousuf Khan.</p>
+        <div class="hero-actions">
+          <button class="hero-cta primary" onclick="openModal()">Subscribe</button>
+          <a href="poetry.html" class="hero-cta secondary">Explore</a>
+        </div>
+      </section>
+
+      <!-- Section Index -->
+      <section class="section-index">
+        <p class="section-label">What's here</p>
+        <div class="section-grid">
+
+          <a href="poetry.html" class="section-card">
+            <p class="card-number">01</p>
+            <span class="card-icon">✦</span>
+            <p class="card-title">Poetry</p>
+            <p class="card-desc">Original verse. Observations, reflections, and the occasional indulgence.</p>
+            <span class="card-arrow">→</span>
+          </a>
+
+          <a href="music.html" class="section-card">
+            <p class="card-number">02</p>
+            <span class="card-icon">♪</span>
+            <p class="card-title">Music</p>
+            <p class="card-desc">Albums and playlists that have a hold on me. Updated when something new does.</p>
+            <span class="card-arrow">→</span>
+          </a>
+
+          <a href="stocks.html" class="section-card">
+            <p class="card-number">03</p>
+            <span class="card-icon">◈</span>
+            <p class="card-title">Markets</p>
+            <p class="card-desc">Stocks I follow closely. Notes, thesis, and signal — not advice.</p>
+            <span class="card-arrow">→</span>
+          </a>
+
+          <div class="section-card" style="cursor:default;">
+            <p class="card-number">—</p>
+            <span class="card-icon" style="opacity:0.3;">◌</span>
+            <p class="card-title" style="color:var(--ink-faint);">Coming soon</p>
+            <p class="card-desc">Opinion pieces and longer essays. Working on it.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="contact-section">
+        <div class="contact-inner">
+          <div class="contact-left">
+            <h2>Get in touch</h2>
+            <p>This form is for subscribers only. If you'd like to reach me, subscribe first — approved subscribers will be able to send me a message directly.</p>
+            <p style="margin-top:16px; font-size:0.88rem;">Not a subscriber yet? Click <strong style="color:var(--ink); cursor:pointer;" onclick="openModal()">Subscribe</strong> to request access.</p>
+          </div>
+          <div class="contact-form">
+            <div id="contact-form-content">
+              <div class="form-group">
+                <label for="c-name">Your name</label>
+                <input type="text" id="c-name" name="name" placeholder="Yousuf Khan" required />
+              </div>
+              <div class="form-group">
+                <label for="c-email">Your email</label>
+                <input type="email" id="c-email" name="email" placeholder="you@example.com" required />
+              </div>
+              <div class="form-group">
+                <label for="c-message">Message</label>
+                <textarea id="c-message" name="message" rows="5" placeholder="Write your message here..."></textarea>
+              </div>
+              <button class="btn-primary" style="width:auto; padding:13px 32px;" onclick="sendContact(event)">Send message</button>
+              <p class="form-note" style="text-align:left; margin-top:12px;">For approved subscribers only.</p>
+            </div>
+            <div class="contact-success" id="contact-success">
+              <p>✦ &nbsp;Message sent. Thank you.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About strip -->
+      <section class="about-strip">
+        <span class="label">About</span>
+        <p class="about-text">
+          This is a quiet corner of the internet. No ads, no algorithm — just things I find worth sharing. Subscribe to hear from me directly when something new goes up.
+        </p>
+      </section>
+
+    </div>
+
+    <footer>
+      <div class="container">
+        <span class="footer-copy">© 2026 Yousuf Khan · ykhan.org</span>
+        <ul class="footer-links">
+          <li><a href="poetry.html">Poetry</a></li>
+          <li><a href="music.html">Music</a></li>
+          <li><a href="stocks.html">Markets</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Subscribe Modal -->
+  <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+
+      <div id="modal-form-content">
+        <h2>Stay in the loop</h2>
+        <p>Subscribe to receive updates when new content goes up. Access is approved personally.</p>
+
+        <form id="subscribe-form" action="https://formspree.io/f/xzdnlkvp" method="POST" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="_subject" value="New subscription request — ykhan.org" />
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" placeholder="Yousuf Khan" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <button type="submit" class="btn-primary">Request access</button>
+          <p class="form-note">Your request will be reviewed. You'll hear back if approved.</p>
+        </form>
+      </div>
+
+      <div class="form-success" id="form-success">
+        <div class="check">✦</div>
+        <h3>Request sent</h3>
+        <p>Thank you. Your subscription request has been received — you'll hear back if approved.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modal')) closeModal();
+    }
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          document.getElementById('modal-form-content').style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        }
+      } catch(err) {
+        alert('Something went wrong. Please try again.');
+      }
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    async function sendContact(e) {
+      e.preventDefault();
+      const name = document.getElementById('c-name').value;
+      const email = document.getElementById('c-email').value;
+      const message = document.getElementById('c-message').value;
+      if (!name || !email || !message) { alert('Please fill in all fields.'); return; }
+      const data = new FormData();
+      data.append('name', name);
+      data.append('email', email);
+      data.append('message', message);
+      data.append('_subject', 'Message from subscriber — ykhan.org');
+      try {
+        const res = await fetch('https://formspree.io/f/xzdnlkvp', {
+          method: 'POST', body: data, headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          document.getElementById('contact-form-content').style.display = 'none';
+          document.getElementById('contact-success').style.display = 'block';
+        }
+      } catch(err) { alert('Something went wrong. Please try again.'); }
+    }
+  </script>
+
+</body>
+</html>
