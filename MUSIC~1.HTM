@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music — Y. Khan</title>
+  <meta name="description" content="Albums and playlists Yousuf Khan is listening to." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Music Grid ── */
+    .music-intro {
+      font-size: 1rem;
+      color: var(--ink-light);
+      max-width: 520px;
+      margin-bottom: 64px;
+      line-height: 1.8;
+    }
+
+    .music-section {
+      margin-bottom: 72px;
+    }
+
+    .music-section-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .album-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 32px;
+    }
+
+    .album-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .spotify-embed {
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .album-note {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.6;
+      font-style: italic;
+      font-family: var(--font-serif);
+    }
+
+    /* ── How to add albums ── */
+    .add-note {
+      background: var(--bg-soft);
+      border: 1px dashed var(--line);
+      border-radius: 4px;
+      padding: 32px;
+      text-align: center;
+      color: var(--ink-faint);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      display: none; /* hidden in production — shows as placeholder in dev */
+    }
+
+    .placeholder-card {
+      border: 1px dashed var(--line);
+      border-radius: 4px;
+      height: 152px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink-faint);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 640px) {
+      .album-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">Y. Khan</a>
+    <ul class="nav-links">
+      <li><a href="poetry.html">Poetry</a></li>
+      <li><a href="music.html" class="active">Music</a></li>
+      <li><a href="stocks.html">Markets</a></li>
+    </ul>
+    <button class="nav-subscribe" onclick="openModal()">Subscribe</button>
+  </nav>
+
+  <div class="page">
+    <div class="container">
+
+      <!-- Page Header -->
+      <header class="page-header">
+        <p class="eyebrow">Music</p>
+        <h1>What I'm listening to</h1>
+        <p class="subtitle">Albums and playlists that have a hold on me right now.</p>
+      </header>
+
+      <!-- Currently Playing -->
+      <section class="music-section">
+        <p class="music-section-title">Currently on repeat</p>
+        <div class="album-grid">
+
+          <!--
+            HOW TO ADD YOUR SPOTIFY ALBUMS:
+            1. Open Spotify → find the album or playlist
+            2. Click ··· → Share → Copy Embed Code
+            3. Paste the iframe below, replacing the placeholder
+            4. Add your note below the embed
+          -->
+
+          <!-- Album 1 — replace with your Spotify embed -->
+          <div class="album-card">
+            <div class="spotify-embed">
+              <!-- PASTE YOUR SPOTIFY EMBED HERE — Example format:
+              <iframe style="border-radius:4px" src="https://open.spotify.com/embed/album/ALBUM_ID?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+              -->
+              <div class="placeholder-card">Add Spotify album →</div>
+            </div>
+            <p class="album-note">Your note about this album goes here — what draws you to it, a memory it holds.</p>
+          </div>
+
+          <!-- Album 2 -->
+          <div class="album-card">
+            <div class="spotify-embed">
+              <div class="placeholder-card">Add Spotify album →</div>
+            </div>
+            <p class="album-note">Your note about this album goes here.</p>
+          </div>
+
+          <!-- Album 3 -->
+          <div class="album-card">
+            <div class="spotify-embed">
+              <div class="placeholder-card">Add Spotify album →</div>
+            </div>
+            <p class="album-note">Your note about this album goes here.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Playlists -->
+      <section class="music-section">
+        <p class="music-section-title">Playlists</p>
+        <div class="album-grid">
+
+          <!-- Playlist 1 — replace with your Spotify embed -->
+          <div class="album-card">
+            <div class="spotify-embed">
+              <div class="placeholder-card">Add Spotify playlist →</div>
+            </div>
+            <p class="album-note">Your note about this playlist.</p>
+          </div>
+
+          <!-- Playlist 2 -->
+          <div class="album-card">
+            <div class="spotify-embed">
+              <div class="placeholder-card">Add Spotify playlist →</div>
+            </div>
+            <p class="album-note">Your note about this playlist.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Archive -->
+      <section class="music-section">
+        <p class="music-section-title">Past favourites</p>
+        <div class="album-grid">
+          <div class="album-card">
+            <div class="spotify-embed">
+              <div class="placeholder-card">Add Spotify album →</div>
+            </div>
+            <p class="album-note">Your note here.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer>
+      <div class="container">
+        <span class="footer-copy">© 2026 Yousuf Khan · ykhan.org</span>
+        <ul class="footer-links">
+          <li><a href="poetry.html">Poetry</a></li>
+          <li><a href="music.html">Music</a></li>
+          <li><a href="stocks.html">Markets</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Subscribe Modal -->
+  <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div id="modal-form-content">
+        <h2>Stay in the loop</h2>
+        <p>Subscribe to receive updates when new content goes up. Access is approved personally.</p>
+        <form id="subscribe-form" action="https://formspree.io/f/xzdnlkvp" method="POST" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="_subject" value="New subscription request — ykhan.org" />
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" placeholder="Yousuf Khan" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <button type="submit" class="btn-primary">Request access</button>
+          <p class="form-note">Your request will be reviewed. You'll hear back if approved.</p>
+        </form>
+      </div>
+      <div class="form-success" id="form-success">
+        <div class="check">✦</div>
+        <h3>Request sent</h3>
+        <p>Thank you. Your subscription request has been received — you'll hear back if approved.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
+    function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+        if (res.ok) { document.getElementById('modal-form-content').style.display = 'none'; document.getElementById('form-success').style.display = 'block'; }
+      } catch(err) { alert('Something went wrong. Please try again.'); }
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+
+</body>
+</html>

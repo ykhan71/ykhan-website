@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Markets — Y. Khan</title>
+  <meta name="description" content="Stocks Yousuf Khan is watching — notes and thesis, not advice." />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Disclaimer ── */
+    .disclaimer {
+      background: var(--bg-soft);
+      border-left: 2px solid var(--ink-faint);
+      padding: 14px 20px;
+      margin-bottom: 56px;
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+      line-height: 1.6;
+    }
+
+    /* ── Watchlist Table ── */
+    .watchlist-header {
+      display: grid;
+      grid-template-columns: 100px 1fr 110px 110px;
+      gap: 16px;
+      padding: 0 0 12px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 0;
+    }
+
+    .watchlist-header span {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .stock-row {
+      display: grid;
+      grid-template-columns: 100px 1fr 110px 110px;
+      gap: 16px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+      transition: background 0.15s;
+    }
+
+    .stock-row:hover { background: var(--bg-soft); margin: 0 -32px; padding: 28px 32px; }
+
+    .stock-ticker {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .stock-name {
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .stock-thesis h3 {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .stock-thesis p {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+    }
+
+    .stock-price {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-align: right;
+    }
+
+    .stock-price .price-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      display: block;
+      margin-bottom: 4px;
+      text-align: right;
+    }
+
+    .price-loading {
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+      font-style: italic;
+    }
+
+    .stock-conviction {
+      text-align: right;
+    }
+
+    .conviction-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .conviction-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .conviction-dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--line);
+    }
+
+    .dot.filled { background: var(--accent); }
+
+    /* ── Notes section ── */
+    .market-notes {
+      margin-top: 72px;
+      padding-top: 48px;
+      border-top: 1px solid var(--line);
+    }
+
+    .notes-title {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 32px;
+    }
+
+    .note-entry {
+      padding: 32px 0;
+      border-bottom: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 32px;
+    }
+
+    .note-date {
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      padding-top: 4px;
+    }
+
+    .note-content h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .note-content p {
+      font-size: 0.92rem;
+      color: var(--ink-light);
+      line-height: 1.75;
+    }
+
+    @media (max-width: 640px) {
+      .watchlist-header,
+      .stock-row {
+        grid-template-columns: 80px 1fr;
+      }
+      .stock-price, .stock-conviction { display: none; }
+      .note-entry { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-logo">Y. Khan</a>
+    <ul class="nav-links">
+      <li><a href="poetry.html">Poetry</a></li>
+      <li><a href="music.html">Music</a></li>
+      <li><a href="stocks.html" class="active">Markets</a></li>
+    </ul>
+    <button class="nav-subscribe" onclick="openModal()">Subscribe</button>
+  </nav>
+
+  <div class="page">
+    <div class="container">
+
+      <!-- Page Header -->
+      <header class="page-header">
+        <p class="eyebrow">Markets</p>
+        <h1>Stocks I watch</h1>
+        <p class="subtitle">My watchlist, thesis, and ongoing notes. This is not financial advice.</p>
+      </header>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer">
+        Nothing on this page constitutes financial advice. These are personal notes on companies I find interesting. Do your own research.
+      </div>
+
+      <!-- Watchlist -->
+      <div class="watchlist-header">
+        <span>Ticker</span>
+        <span>Thesis</span>
+        <span style="text-align:right">Price</span>
+        <span style="text-align:right">Conviction</span>
+      </div>
+
+      <!-- AMD -->
+      <div class="stock-row">
+        <div>
+          <div class="stock-ticker">AMD</div>
+          <div class="stock-name">Adv. Micro Devices</div>
+        </div>
+        <div class="stock-thesis">
+          <h3>The GPU challenger</h3>
+          <p>MI300 series gaining traction with hyperscalers. Watching market share against NVDA in AI inference workloads. Valuation more reasonable than peers.</p>
+        </div>
+        <div class="stock-price">
+          <span class="price-label">Last</span>
+          <span id="price-AMD" class="price-loading">—</span>
+        </div>
+        <div class="stock-conviction">
+          <div class="conviction-bar">
+            <span class="conviction-label">Conviction</span>
+            <div class="conviction-dots">
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NVDA -->
+      <div class="stock-row">
+        <div>
+          <div class="stock-ticker">NVDA</div>
+          <div class="stock-name">NVIDIA Corp.</div>
+        </div>
+        <div class="stock-thesis">
+          <h3>The AI infrastructure backbone</h3>
+          <p>Still the dominant pick-and-shovel play in AI. Blackwell demand appears strong. The question is how long the moat holds as competition intensifies.</p>
+        </div>
+        <div class="stock-price">
+          <span class="price-label">Last</span>
+          <span id="price-NVDA" class="price-loading">—</span>
+        </div>
+        <div class="stock-conviction">
+          <div class="conviction-bar">
+            <span class="conviction-label">Conviction</span>
+            <div class="conviction-dots">
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AVGO -->
+      <div class="stock-row">
+        <div>
+          <div class="stock-ticker">AVGO</div>
+          <div class="stock-name">Broadcom Inc.</div>
+        </div>
+        <div class="stock-thesis">
+          <h3>Custom silicon + software flywheel</h3>
+          <p>VMware integration tracking well. Custom AI ASIC business (XPU) growing fast with hyperscaler clients. Diversified revenue makes it a steadier AI play.</p>
+        </div>
+        <div class="stock-price">
+          <span class="price-label">Last</span>
+          <span id="price-AVGO" class="price-loading">—</span>
+        </div>
+        <div class="stock-conviction">
+          <div class="conviction-bar">
+            <span class="conviction-label">Conviction</span>
+            <div class="conviction-dots">
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LRCX -->
+      <div class="stock-row">
+        <div>
+          <div class="stock-ticker">LRCX</div>
+          <div class="stock-name">Lam Research</div>
+        </div>
+        <div class="stock-thesis">
+          <h3>Semiconductor equipment leverage</h3>
+          <p>Critical equipment for memory and logic fab. Benefits from any upturn in NAND/DRAM capex. Watching China exposure and export control risk closely.</p>
+        </div>
+        <div class="stock-price">
+          <span class="price-label">Last</span>
+          <span id="price-LRCX" class="price-loading">—</span>
+        </div>
+        <div class="stock-conviction">
+          <div class="conviction-bar">
+            <span class="conviction-label">Conviction</span>
+            <div class="conviction-dots">
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKHY -->
+      <div class="stock-row">
+        <div>
+          <div class="stock-ticker">SKHY</div>
+          <div class="stock-name">SkyHigh Networks</div>
+        </div>
+        <div class="stock-thesis">
+          <h3>Emerging position</h3>
+          <p>Early stage watch. Monitoring for catalyst before sizing up. Thesis still forming — will update as picture clarifies.</p>
+        </div>
+        <div class="stock-price">
+          <span class="price-label">Last</span>
+          <span id="price-SKHY" class="price-loading">—</span>
+        </div>
+        <div class="stock-conviction">
+          <div class="conviction-bar">
+            <span class="conviction-label">Conviction</span>
+            <div class="conviction-dots">
+              <div class="dot filled"></div>
+              <div class="dot filled"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Market Notes -->
+      <section class="market-notes">
+        <p class="notes-title">Market notes</p>
+
+        <div class="note-entry">
+          <div class="note-date">Aug 2026</div>
+          <div class="note-content">
+            <h3>Semiconductor cycle: where are we?</h3>
+            <p>AI infrastructure spend appears durable but the memory cycle recovery is the key variable to watch heading into H2. LRCX and the equipment names are a leading indicator — order trends will tell us before results do.</p>
+          </div>
+        </div>
+
+        <div class="note-entry">
+          <div class="note-date">Jul 2026</div>
+          <div class="note-content">
+            <h3>On NVDA's moat</h3>
+            <p>CUDA's lock-in is real but shouldn't be taken for granted. AMD's ROCm improvements and custom ASIC proliferation (Google TPU, Amazon Trainium, Meta MTIA) are worth watching. Not a bear thesis — but something to track.</p>
+          </div>
+        </div>
+
+        <!-- Add more notes above this line -->
+      </section>
+
+    </div>
+
+    <footer>
+      <div class="container">
+        <span class="footer-copy">© 2026 Yousuf Khan · ykhan.org</span>
+        <ul class="footer-links">
+          <li><a href="poetry.html">Poetry</a></li>
+          <li><a href="music.html">Music</a></li>
+          <li><a href="stocks.html">Markets</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Subscribe Modal -->
+  <div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div id="modal-form-content">
+        <h2>Stay in the loop</h2>
+        <p>Subscribe to receive updates when new content goes up. Access is approved personally.</p>
+        <form id="subscribe-form" action="https://formspree.io/f/xzdnlkvp" method="POST" onsubmit="handleSubmit(event)">
+          <input type="hidden" name="_subject" value="New subscription request — ykhan.org" />
+          <div class="form-group">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" placeholder="Yousuf Khan" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <button type="submit" class="btn-primary">Request access</button>
+          <p class="form-note">Your request will be reviewed. You'll hear back if approved.</p>
+        </form>
+      </div>
+      <div class="form-success" id="form-success">
+        <div class="check">✦</div>
+        <h3>Request sent</h3>
+        <p>Thank you. Your subscription request has been received — you'll hear back if approved.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ── Live prices via Yahoo Finance (free, no API key) ── */
+    const tickers = ['AMD', 'NVDA', 'AVGO', 'LRCX', 'SKHY'];
+
+    async function fetchPrice(ticker) {
+      try {
+        const res = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`);
+        const data = await res.json();
+        const price = data?.chart?.result?.[0]?.meta?.regularMarketPrice;
+        if (price) {
+          document.getElementById(`price-${ticker}`).textContent = `$${price.toFixed(2)}`;
+        }
+      } catch(e) {
+        document.getElementById(`price-${ticker}`).textContent = '—';
+      }
+    }
+
+    tickers.forEach(fetchPrice);
+
+    /* ── Modal ── */
+    function openModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
+    function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+    async function handleSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } });
+        if (res.ok) { document.getElementById('modal-form-content').style.display = 'none'; document.getElementById('form-success').style.display = 'block'; }
+      } catch(err) { alert('Something went wrong. Please try again.'); }
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  </script>
+
+</body>
+</html>
