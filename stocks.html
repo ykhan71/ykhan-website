@@ -207,6 +207,29 @@
         <p class="subtitle">My watchlist, thesis, and ongoing notes. This is not financial advice.</p>
       </header>
 
+      <!-- Live Ticker Tape -->
+      <div style="margin-bottom: 48px; border-radius: 4px; overflow: hidden;">
+        <div class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+          {
+            "symbols": [
+              {"proName": "NASDAQ:AMD",  "title": "AMD"},
+              {"proName": "NASDAQ:NVDA", "title": "NVDA"},
+              {"proName": "NASDAQ:AVGO", "title": "AVGO"},
+              {"proName": "NASDAQ:LRCX", "title": "LRCX"},
+              {"proName": "NASDAQ:SKHY", "title": "SKHY"}
+            ],
+            "showSymbolLogo": true,
+            "colorTheme": "light",
+            "isTransparent": true,
+            "displayMode": "adaptive",
+            "locale": "en"
+          }
+          </script>
+        </div>
+      </div>
+
       <!-- Disclaimer -->
       <div class="disclaimer">
         Nothing on this page constitutes financial advice. These are personal notes on companies I find interesting. Do your own research.
@@ -427,23 +450,7 @@
   </div>
 
   <script>
-    /* ── Live prices via Yahoo Finance (free, no API key) ── */
-    const tickers = ['AMD', 'NVDA', 'AVGO', 'LRCX', 'SKHY'];
-
-    async function fetchPrice(ticker) {
-      try {
-        const res = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`);
-        const data = await res.json();
-        const price = data?.chart?.result?.[0]?.meta?.regularMarketPrice;
-        if (price) {
-          document.getElementById(`price-${ticker}`).textContent = `$${price.toFixed(2)}`;
-        }
-      } catch(e) {
-        document.getElementById(`price-${ticker}`).textContent = '—';
-      }
-    }
-
-    tickers.forEach(fetchPrice);
+    /* Prices shown via TradingView ticker tape above */
 
     /* ── Modal ── */
     function openModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
