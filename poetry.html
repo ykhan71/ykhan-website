@@ -121,11 +121,18 @@
         <p class="subtitle">Verse, observation, and whatever arrives at odd hours.</p>
       </header>
 
+      <!-- Language Filter -->
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="filterLang('all', this)">All</button>
+        <button class="lang-btn" onclick="filterLang('en', this)">English</button>
+        <button class="lang-btn" onclick="filterLang('ur', this)">اردو</button>
+      </div>
+
       <!-- Poems -->
       <div class="poems-list">
 
         <!-- Poem 1 — Sample -->
-        <article class="poem-entry">
+        <article class="poem-entry" data-lang="en">
           <div class="poem-meta">
             <p class="poem-date">Jul 2026</p>
             <p class="poem-tag">Reflection</p>
@@ -149,7 +156,7 @@ of forgetting how to count.
         </article>
 
         <!-- Poem 2 — Sample -->
-        <article class="poem-entry">
+        <article class="poem-entry" data-lang="en">
           <div class="poem-meta">
             <p class="poem-date">Jun 2026</p>
             <p class="poem-tag">Observation</p>
@@ -170,6 +177,22 @@ I have been listening
 to the things that do not move.
 They are the loudest.
             </div>
+          </div>
+        </article>
+
+        <!-- Urdu Poem sample -->
+        <article class="poem-entry rtl" data-lang="ur">
+          <div class="poem-meta">
+            <p class="poem-date" style="text-align:right">جولائی ۲۰۲۶</p>
+            <p class="poem-tag">غزل</p>
+          </div>
+          <div class="poem-body">
+            <h2 class="urdu-title">خاموشی کا موسم</h2>
+            <div class="poem-text urdu">یہاں کچھ لوگ خاموشی میں بھی بولتے ہیں
+جو کہہ نہ سکے وہ آنکھوں سے کھولتے ہیں
+
+زمانہ گزرتا ہے، لمحے بھی جاتے ہیں
+پر یادوں کے پتھر دل میں ڈھولتے ہیں</div>
           </div>
         </article>
 
@@ -228,6 +251,18 @@ They are the loudest.
   </div>
 
   <script>
+    function filterLang(lang, btn) {
+      document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.poem-entry').forEach(poem => {
+        if (lang === 'all' || poem.dataset.lang === lang) {
+          poem.style.display = '';
+        } else {
+          poem.style.display = 'none';
+        }
+      });
+    }
+
     function openModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
     function closeModal() { document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
     function closeModalOutside(e) { if (e.target === document.getElementById('modal')) closeModal(); }

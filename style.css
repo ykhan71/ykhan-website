@@ -3,7 +3,7 @@
    Light & airy, minimal, editorial
 ───────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
 
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -20,6 +20,7 @@
 
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans:  'Inter', system-ui, sans-serif;
+  --font-urdu:  'Noto Nastaliq Urdu', serif;
 
   --max-w: 860px;
   --nav-h: 64px;
@@ -354,6 +355,60 @@ footer .container {
 .form-success p {
   font-size: 0.9rem;
   color: var(--ink-light);
+}
+
+/* ── Urdu / RTL Support ── */
+.urdu {
+  font-family: var(--font-urdu);
+  direction: rtl;
+  text-align: right;
+  line-height: 2.4;
+  font-size: 1.25rem;
+}
+
+.urdu-title {
+  font-family: var(--font-urdu);
+  direction: rtl;
+  text-align: right;
+  font-size: 1.8rem;
+  line-height: 2;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+
+.poem-entry.rtl {
+  direction: rtl;
+}
+
+.poem-entry.rtl .poem-meta {
+  text-align: right;
+}
+
+.lang-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.lang-btn {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--ink-light);
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 0.2s;
+}
+
+.lang-btn.active,
+.lang-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--bg-soft);
 }
 
 /* ── Responsive ── */
