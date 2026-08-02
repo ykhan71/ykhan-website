@@ -69,8 +69,9 @@ Two-column panel:
 - **Font:** always `font-family: var(--font-urdu)` for all Urdu text — poem body, titles, card names, panel headers
 - **Poem body text:** `font-size: 0.96rem; line-height: 2.4; color: var(--ink)` — no `-light` or `-faint` variants
 - **Poem titles:** `font-family: var(--font-urdu); font-size: 1.5rem; color: var(--ink); font-weight: 400; line-height: 1.5`
-- **Do not use `var(--ink-light)` for poem body text** — this was the source of the visual inconsistency between Muztar and other poets
-- The Muztar verse style (0.96rem, 2.4 line-height, full ink) is the reference standard for all poem rendering
+- **Do not use `var(--ink-light)` or `var(--ink-faint)` for any poem text** — this includes body text, verse labels (پہلا مصرع etc.), section headings, and summary elements. All readable poetry-related text uses `var(--ink)`
+- `var(--ink-faint)` is reserved for purely decorative or metadata elements (e.g. the small مصرع counter number)
+- The Muztar verse style (0.96rem, 2.4 line-height, `var(--ink)`) is the reference standard for all poem rendering
 
 #### Feature Panel — Muztar (special full-width layout)
 
