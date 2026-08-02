@@ -322,11 +322,14 @@
       color: var(--ink-faint);
     }
 
-    .chart-modal-body iframe {
-      width: 100%;
+    .chart-modal-body {
       height: 520px;
-      border: none;
-      display: block;
+      position: relative;
+    }
+
+    #tv-chart-container {
+      width: 100%;
+      height: 100%;
     }
 
     .stock-ticker {
@@ -606,7 +609,7 @@
         <button class="modal-close" onclick="closeChart()">×</button>
       </div>
       <div class="chart-modal-body">
-        <iframe id="chart-frame" frameborder="0" allowtransparency="true" scrolling="no" allowfullscreen></iframe>
+        <div id="tv-chart-container"></div>
       </div>
     </div>
   </div>
@@ -805,19 +808,49 @@
       SKHY: 'NASDAQ:SKHY'
     };
 
-    function openChart(ticker, name) {
-      const symbol = encodeURIComponent(SYMBOL_MAP[ticker] || ticker);
-      const src = `https://s3.tradingview.com/widgetembed/?symbol=${symbol}&interval=D&hidesidetoolbar=0&symboledit=0&saveimage=0&toolbarbg=FDFCF9&studies=%5B%5D&theme=light&style=1&timezone=America%2FNew_York&withdateranges=1&showpopupbutton=0&locale=en`;
-      document.getElementById('chart-frame').src = src;
+    function loadTVScript() {
+      return new Promise(resolve => {
+        if (window.TradingView) { resolve(); return; }
+        const s = document.createElement('script');
+        s.src = 'https://s3.tradingview.com/tv.js';
+        s.onload = resolve;
+        document.head.appendChild(s);
+      });
+    }
+
+    async function openChart(ticker, name) {
       document.getElementById('chart-label-ticker').textContent = ticker;
       document.getElementById('chart-label-name').textContent = name;
       document.getElementById('chart-modal').classList.add('open');
       document.body.style.overflow = 'hidden';
+
+      // Clear previous chart
+      const container = document.getElementById('tv-chart-container');
+      container.innerHTML = '';
+
+      await loadTVScript();
+
+      new TradingView.widget({
+        container_id: 'tv-chart-container',
+        symbol: SYMBOL_MAP[ticker] || ticker,
+        interval: 'D',
+        timezone: 'America/New_York',
+        theme: 'light',
+        style: '1',
+        locale: 'en',
+        toolbar_bg: '#FDFCF9',
+        enable_publishing: false,
+        allow_symbol_change: false,
+        save_image: false,
+        withdateranges: true,
+        hide_side_toolbar: false,
+        autosize: true
+      });
     }
 
     function closeChart() {
       document.getElementById('chart-modal').classList.remove('open');
-      document.getElementById('chart-frame').src = '';
+      document.getElementById('tv-chart-container').innerHTML = '';
       document.body.style.overflow = '';
     }
 
