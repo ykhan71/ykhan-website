@@ -163,22 +163,36 @@ Paintings by Ottoman artist Osman Hamdi Bey (1842–1910) appear on all four pag
 | `music.html` | `musician-girls.jpg` | Two Musician Girls | 1880 |
 | `stocks.html` | `carpet-dealer.jpg` | The Carpet Dealer | 1888 |
 
-### Layout Pattern — Art Panel (poetry, music, stocks)
+### Layout Pattern — Art Panel (poetry, stocks)
 
-Two-column grid above the main section content, separated from it by a border:
+Full-width image above the main section content, with caption and intro text in a two-column row beneath it:
 
 ```html
-<div style="display:grid; grid-template-columns:320px 1fr; gap:48px; align-items:start; margin-bottom:64px; padding-bottom:56px; border-bottom:1px solid var(--line);">
-  <div>
-    <img src="images/art/FILENAME.jpg" alt="TITLE — Osman Hamdi Bey, YEAR" style="width:100%; display:block; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09);" />
-    <p style="margin-top:8px; font-size:0.67rem; color:var(--ink-faint); line-height:1.5;">
+<div style="margin-bottom:64px; padding-bottom:56px; border-bottom:1px solid var(--line);">
+  <img src="images/art/FILENAME.jpg" alt="TITLE — Osman Hamdi Bey, YEAR" style="width:100%; display:block; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09); max-height:520px; object-fit:cover; object-position:center top;" />
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:16px; align-items:start;">
+    <p style="font-size:0.67rem; color:var(--ink-faint); line-height:1.5; margin:0;">
       <em>TITLE</em>, YEAR &nbsp;·&nbsp;
       <a href="https://en.wikipedia.org/wiki/Osman_Hamdi_Bey" target="_blank" rel="noopener" style="color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line);">Osman Hamdi Bey</a>
     </p>
+    <p style="font-family:var(--font-serif); font-size:1rem; font-weight:300; line-height:1.7; color:var(--ink); margin:0; text-align:right;">INTRO TEXT — connects the painting to the page's theme.</p>
   </div>
-  <div style="padding-top:4px;">
-    <p style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:14px;">On the wall</p>
-    <p style="font-family:var(--font-serif); font-size:1.15rem; font-weight:300; line-height:1.7; color:var(--ink);">INTRO TEXT — connects the painting to the page's theme.</p>
+</div>
+```
+
+### Layout Pattern — Art Panel (music — portrait painting)
+
+Music page uses the same full-width stacked layout but **without** `max-height`/`object-fit` cropping, since *Two Musician Girls* is portrait orientation. Instead the image is capped by width and centered:
+
+```html
+<div style="margin-bottom:64px; padding-bottom:56px; border-bottom:1px solid var(--line);">
+  <img src="images/art/musician-girls.jpg" alt="Two Musician Girls — Osman Hamdi Bey, 1880" style="width:100%; max-width:560px; display:block; margin:0 auto; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09);" />
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:16px; align-items:start;">
+    <p style="font-size:0.67rem; color:var(--ink-faint); line-height:1.5; margin:0;">
+      <em>Two Musician Girls</em>, 1880 &nbsp;·&nbsp;
+      <a href="https://en.wikipedia.org/wiki/Osman_Hamdi_Bey" ...>Osman Hamdi Bey</a>
+    </p>
+    <p style="font-family:var(--font-serif); font-size:1rem; font-weight:300; line-height:1.7; color:var(--ink); margin:0; text-align:right;">INTRO TEXT</p>
   </div>
 </div>
 ```
@@ -197,11 +211,39 @@ Credit caption sits below the painting image: italic title, year, linked artist 
 
 ---
 
+## Music Page (`music.html`)
+
+Two sections of Spotify embeds rendered as a responsive card grid (`repeat(auto-fill, minmax(280px, 1fr))`). Each card has the embed iframe + an italic serif note below it.
+
+### Urdu / South Asian — "Currently on repeat" (7 tracks)
+
+| # | Title | Artist | Spotify Track ID |
+|---|---|---|---|
+| 1 | Chand Tanha | Meena Kumari | 43qYrY010Hd5QQjkxcoAoz |
+| 2 | Aapki Yaad Aati Rahi Raat Bhar | Chhaya Ganguli | 2bCwBISaRkGc0CUY5t7X87 |
+| 3 | Ham Tere Pyar Mein | Lata Mangeshkar | 2i59WVQlfjtScPqg3Y8Oor |
+| 4 | Voh Baaten Teri Voh Fasane Tere | Tahira Syed | 7nxODFmY7EgsG6PQEjjv0J |
+| 5 | Faasle | Kaavish & Quratulain Balouch | 6YNl1rXbhKvmbMrw9cp3RQ |
+| 6 | Ae Ishq Hamen | Nayyara Noor | 7kElyPuukh0L4ypppyoRhL |
+| 7 | Tum Apna Ranjh o Gham Apni | — | 57U2eQNEWPgMzIUhHVCVDq |
+
+### English (4 tracks)
+
+| # | Title | Artist | Spotify Track ID |
+|---|---|---|---|
+| 1 | Straight From The Heart | Bryan Adams | 6oqBRt8j0VSYtGdUsceSq7 |
+| 2 | Sorry I'm Here For Someone Else | Benson Boone | 15zJeVUmKFnbrxm9dxcxYD |
+| 3 | Highway to Hell | AC/DC | 2zYzyRzz6pRmhPzyfMEC8s |
+| 4 | Livin' On A Prayer | Bon Jovi | 0J6mQxEZnlRt9ymzFntA6z |
+
+Embed URL format: `https://open.spotify.com/embed/track/TRACK_ID?utm_source=generator`
+
+---
+
 ## Pending / Future
 
 - **Jaun Elia** — add a featured sher or ghazal; card will become active and lose grey-out
 - **Personal poems** — section exists in HTML but is hidden; to be shown when Yousuf adds his own work
-- **Music page** — Spotify embed codes to be added
 - **Featured sher of the day** — discussed, deferred
 
 ---
