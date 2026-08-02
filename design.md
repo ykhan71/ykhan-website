@@ -66,13 +66,18 @@ Two-column panel:
 - **Right column** (`.poet-feature-poem`): poem type label, then poem title as a clickable `<details>/<summary>` — click the title to expand the full poem below it
 - If no poem yet (placeholder `<!-- -->`): shows "Featured poem coming soon." (title non-interactive)
 
-#### Urdu Font & Colour Standards (apply consistently everywhere)
+#### Colour Standards — Site-Wide Rule
+
+**`var(--ink)` is the default for all readable content.** This applies everywhere — poem text, book notes, signal entry notes, music notes, art panel intro text, and any other body copy.
+
+- `var(--ink-light)` and `var(--ink-faint)` are **only** for purely decorative or metadata elements: painting captions, section eyebrow labels, date stamps, source names, small counter numbers. Never use them for substantive text the reader is meant to read.
+- When in doubt, use `var(--ink)`. If text feels hard to read, the answer is always to remove the `-light` or `-faint` flag, not to adjust font size.
+
+#### Urdu Font & Colour Standards
 
 - **Font:** always `font-family: var(--font-urdu)` for all Urdu text — poem body, titles, card names, panel headers
-- **Poem body text:** `font-size: 0.96rem; line-height: 2.4; color: var(--ink)` — no `-light` or `-faint` variants
+- **Poem body text:** `font-size: 0.96rem; line-height: 2.4; color: var(--ink)`
 - **Poem titles:** `font-family: var(--font-urdu); font-size: 1.5rem; color: var(--ink); font-weight: 400; line-height: 1.5`
-- **Do not use `var(--ink-light)` or `var(--ink-faint)` for any poem text** — this includes body text, verse labels (پہلا مصرع etc.), section headings, and summary elements. All readable poetry-related text uses `var(--ink)`
-- `var(--ink-faint)` is reserved for purely decorative or metadata elements (e.g. the small مصرع counter number)
 - The Muztar verse style (0.96rem, 2.4 line-height, `var(--ink)`) is the reference standard for all poem rendering
 
 #### Feature Panel — Muztar (special full-width layout)
@@ -167,34 +172,38 @@ Paintings appear on all pages. Images stored locally in `images/art/`. The first
 
 **Downloading the books page painting:** Fragonard's *A Young Girl Reading* is public domain. Download high-res from the [National Gallery of Art](https://www.nga.gov/collection/art-object-page.46189.html) or [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fragonard,_Jean-Honor%C3%A9_-_A_Young_Girl_Reading_-_c._1776.jpg). Save as `images/art/girl-reading.jpg`.
 
-### Layout Pattern — Art Panel (poetry, stocks)
+### Layout Pattern — Art Panel
 
-Full-width image above the main section content, with caption and intro text in a two-column row beneath it:
+Full-width image above the main section content, with caption and intro text in a two-column row beneath it. **Two templates depending on painting orientation — always check before implementing.**
+
+#### Landscape paintings (e.g. Scholar, Carpet Dealer)
+
+Use `max-height` + `object-fit:cover` to constrain height while filling width:
 
 ```html
 <div style="margin-bottom:64px; padding-bottom:56px; border-bottom:1px solid var(--line);">
-  <img src="images/art/FILENAME.jpg" alt="TITLE — Osman Hamdi Bey, YEAR" style="width:100%; display:block; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09); max-height:520px; object-fit:cover; object-position:center top;" />
+  <img src="images/art/FILENAME.jpg" alt="TITLE — ARTIST, YEAR" style="width:100%; display:block; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09); max-height:520px; object-fit:cover; object-position:center top;" />
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:16px; align-items:start;">
     <p style="font-size:0.67rem; color:var(--ink-faint); line-height:1.5; margin:0;">
       <em>TITLE</em>, YEAR &nbsp;·&nbsp;
-      <a href="https://en.wikipedia.org/wiki/Osman_Hamdi_Bey" target="_blank" rel="noopener" style="color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line);">Osman Hamdi Bey</a>
+      <a href="WIKI_URL" target="_blank" rel="noopener" style="color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line);">ARTIST</a>
     </p>
-    <p style="font-family:var(--font-serif); font-size:1rem; font-weight:300; line-height:1.7; color:var(--ink); margin:0; text-align:right;">INTRO TEXT — connects the painting to the page's theme.</p>
+    <p style="font-family:var(--font-serif); font-size:1rem; font-weight:300; line-height:1.7; color:var(--ink); margin:0; text-align:right;">INTRO TEXT</p>
   </div>
 </div>
 ```
 
-### Layout Pattern — Art Panel (music — portrait painting)
+#### Portrait paintings (e.g. Two Musician Girls, Wanderer above the Sea of Fog, A Young Girl Reading)
 
-Music page uses the same full-width stacked layout but **without** `max-height`/`object-fit` cropping, since *Two Musician Girls* is portrait orientation. Instead the image is capped by width and centered:
+**Never use `max-height`/`object-fit:cover` on portrait paintings — it crops the subject.** Instead cap the width and center:
 
 ```html
 <div style="margin-bottom:64px; padding-bottom:56px; border-bottom:1px solid var(--line);">
-  <img src="images/art/musician-girls.jpg" alt="Two Musician Girls — Osman Hamdi Bey, 1880" style="width:100%; max-width:560px; display:block; margin:0 auto; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09);" />
+  <img src="images/art/FILENAME.jpg" alt="TITLE — ARTIST, YEAR" style="width:100%; max-width:560px; display:block; margin:0 auto; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09);" />
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:16px; align-items:start;">
     <p style="font-size:0.67rem; color:var(--ink-faint); line-height:1.5; margin:0;">
-      <em>Two Musician Girls</em>, 1880 &nbsp;·&nbsp;
-      <a href="https://en.wikipedia.org/wiki/Osman_Hamdi_Bey" ...>Osman Hamdi Bey</a>
+      <em>TITLE</em>, YEAR &nbsp;·&nbsp;
+      <a href="WIKI_URL" target="_blank" rel="noopener" style="color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line);">ARTIST</a>
     </p>
     <p style="font-family:var(--font-serif); font-size:1rem; font-weight:300; line-height:1.7; color:var(--ink); margin:0; text-align:right;">INTRO TEXT</p>
   </div>
