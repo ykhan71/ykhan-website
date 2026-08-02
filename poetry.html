@@ -97,6 +97,46 @@
       letter-spacing: 0.3em;
     }
 
+    /* ── Poet Cards ── */
+    .poet-card-btn {
+      all: unset;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      transition: border-color 0.2s, background 0.15s;
+    }
+    .poet-card-btn:hover { border-color: var(--ink-light); }
+    .poet-card-btn.active { border-color: var(--ink); background: var(--bg-soft); }
+
+    /* ── Poet Feature Panel ── */
+    #poet-feature-panel {
+      margin-top: 20px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .poet-feature-inner {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 0;
+    }
+    .poet-feature-meta {
+      padding: 36px 28px;
+      border-right: 1px solid var(--line);
+      background: var(--bg-soft);
+    }
+    .poet-feature-poem {
+      padding: 36px 40px;
+    }
+    @media (max-width: 700px) {
+      .poet-feature-inner { grid-template-columns: 1fr; }
+      .poet-feature-meta { border-right: none; border-bottom: 1px solid var(--line); }
+    }
+
     /* ── Empty state ── */
     .empty-state {
       padding: 80px 0;
@@ -145,6 +185,54 @@
         <h1>Written things</h1>
         <p class="subtitle">Verse, observation, and whatever arrives at odd hours.</p>
       </header>
+
+      <!-- ── Favourite Poets ── -->
+      <section style="margin-bottom:72px; padding-bottom:64px; border-bottom:1px solid var(--line);">
+        <p style="font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:32px;">Favourite Poets</p>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(185px, 1fr)); gap:12px;">
+
+          <button class="poet-card-btn" data-poet="faiz" onclick="selectPoet('faiz',this)">
+            <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">فیض احمد فیض</p>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Faiz Ahmed Faiz</p>
+            <p style="font-size:0.7rem; color:var(--ink-faint);">1911 – 1984</p>
+          </button>
+
+          <button class="poet-card-btn" data-poet="ghalib" onclick="selectPoet('ghalib',this)">
+            <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">مرزا غالب</p>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Mirza Ghalib</p>
+            <p style="font-size:0.7rem; color:var(--ink-faint);">1797 – 1869</p>
+          </button>
+
+          <button class="poet-card-btn" data-poet="mir" onclick="selectPoet('mir',this)">
+            <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">میر تقی میر</p>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Mir Taqi Mir</p>
+            <p style="font-size:0.7rem; color:var(--ink-faint);">1723 – 1810</p>
+          </button>
+
+          <button class="poet-card-btn" data-poet="faraz" onclick="selectPoet('faraz',this)">
+            <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">احمد فراز</p>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Ahmed Faraz</p>
+            <p style="font-size:0.7rem; color:var(--ink-faint);">1931 – 2008</p>
+          </button>
+
+          <button class="poet-card-btn" data-poet="zauq" onclick="selectPoet('zauq',this)">
+            <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">ذوق</p>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Sheikh Ibrahim Zauq</p>
+            <p style="font-size:0.7rem; color:var(--ink-faint);">1790 – 1854</p>
+          </button>
+
+          <button class="poet-card-btn" data-poet="jaun" onclick="selectPoet('jaun',this)">
+            <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">جون ایلیا</p>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Jaun Elia</p>
+            <p style="font-size:0.7rem; color:var(--ink-faint);">1931 – 2002</p>
+          </button>
+
+        </div>
+
+        <!-- Feature panel — populated by selectPoet() -->
+        <div id="poet-feature-panel" style="display:none;"></div>
+      </section>
 
       <!-- Language Filter -->
       <div class="lang-toggle">
@@ -314,51 +402,6 @@
 
       </div>
 
-      <!-- Favourite Poets -->
-      <section style="margin-top: 80px; padding-top: 56px; border-top: 1px solid var(--line);">
-        <p style="font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 40px;">Favourite Poets</p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px;">
-
-          <a href="https://www.rekhta.org/poets/faiz-ahmad-faiz/all" target="_blank" rel="noopener" style="display:block; padding: 24px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <p style="font-family: var(--font-urdu); font-size: 1.4rem; direction: rtl; text-align: right; color: var(--ink); margin-bottom: 6px;">فیض احمد فیض</p>
-            <p style="font-size: 0.8rem; color: var(--ink-light);">Faiz Ahmed Faiz</p>
-            <p style="font-size: 0.72rem; color: var(--ink-faint); margin-top: 4px;">1911 – 1984</p>
-          </a>
-
-          <a href="https://www.rekhta.org/poets/mirza-ghalib/ghazals" target="_blank" rel="noopener" style="display:block; padding: 24px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <p style="font-family: var(--font-urdu); font-size: 1.4rem; direction: rtl; text-align: right; color: var(--ink); margin-bottom: 6px;">مرزا غالب</p>
-            <p style="font-size: 0.8rem; color: var(--ink-light);">Mirza Ghalib</p>
-            <p style="font-size: 0.72rem; color: var(--ink-faint); margin-top: 4px;">1797 – 1869</p>
-          </a>
-
-          <a href="https://www.rekhta.org/poets/mir-taqi-mir/ghazals" target="_blank" rel="noopener" style="display:block; padding: 24px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <p style="font-family: var(--font-urdu); font-size: 1.4rem; direction: rtl; text-align: right; color: var(--ink); margin-bottom: 6px;">میر تقی میر</p>
-            <p style="font-size: 0.8rem; color: var(--ink-light);">Mir Taqi Mir</p>
-            <p style="font-size: 0.72rem; color: var(--ink-faint); margin-top: 4px;">1723 – 1810</p>
-          </a>
-
-          <a href="https://www.rekhta.org/poets/ahmad-faraz/all" target="_blank" rel="noopener" style="display:block; padding: 24px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <p style="font-family: var(--font-urdu); font-size: 1.4rem; direction: rtl; text-align: right; color: var(--ink); margin-bottom: 6px;">احمد فراز</p>
-            <p style="font-size: 0.8rem; color: var(--ink-light);">Ahmed Faraz</p>
-            <p style="font-size: 0.72rem; color: var(--ink-faint); margin-top: 4px;">1931 – 2008</p>
-          </a>
-
-          <a href="https://www.rekhta.org/poets/sheikh-ibrahim-zauq/ghazals" target="_blank" rel="noopener" style="display:block; padding: 24px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <p style="font-family: var(--font-urdu); font-size: 1.4rem; direction: rtl; text-align: right; color: var(--ink); margin-bottom: 6px;">ذوق</p>
-            <p style="font-size: 0.8rem; color: var(--ink-light);">Zauq</p>
-            <p style="font-size: 0.72rem; color: var(--ink-faint); margin-top: 4px;">1790 – 1854</p>
-          </a>
-
-          <a href="https://www.rekhta.org/poets/jaun-eliya/all" target="_blank" rel="noopener" style="display:block; padding: 24px; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; transition: border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--line)'">
-            <p style="font-family: var(--font-urdu); font-size: 1.4rem; direction: rtl; text-align: right; color: var(--ink); margin-bottom: 6px;">جون ایلیا</p>
-            <p style="font-size: 0.8rem; color: var(--ink-light);">Jaun Elia</p>
-            <p style="font-size: 0.72rem; color: var(--ink-faint); margin-top: 4px;">1931 – 2002</p>
-          </a>
-
-        </div>
-      </section>
-
       <!-- Subscriber note -->
       <div style="margin-top: 80px; padding: 40px; background: var(--bg-soft); border-radius: 4px; text-align:center;">
         <p style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--ink); margin-bottom: 12px;">Want to read new poems as they arrive?</p>
@@ -410,6 +453,91 @@
   </div>
 
   <script>
+    /* ── Favourite Poets data ── */
+    const POETS = {
+      faiz: {
+        ur: 'فیض احمد فیض', en: 'Faiz Ahmed Faiz', years: '1911 – 1984',
+        intro: 'Revolutionary poet who fused the classical Urdu ghazal with political consciousness. Imprisoned twice by Pakistani authorities, his verse transformed protest into lyric beauty — shot through with longing, solidarity, and an aching tenderness for the dispossessed. Nobel Prize-nominated, his work moves between prison cells and drawing rooms with equal and devastating grace.',
+        poemTitle: 'گلوں میں رنگ بھرے', poemType: 'غزل',
+        poem: 'گلوں میں رنگ بھرے باد نوبہار چلے\nچلے بھی آؤ کہ گلشن کا کاروبار چلے\n\nقفس اداس ہے یارو صبا سے کچھ تو کہو\nکہیں تو بہر خدا آج ذکر یار چلے\n\nکبھی تو صبح ترے کنج لب سے ہو آغاز\nکبھی تو شب سر کاکل سے مشکبار چلے\n\nبڑا ہے درد کا رشتہ یہ دل غریب سہی\nتمہارے نام پہ آئیں گے غم گسار چلے\n\nجو ہم پہ گزری سو گزری مگر شب ہجراں\nہمارے اشک تری عاقبت سنوار چلے\n\nحضور یار ہوئی دفتر جنوں کی طلب\nگرہ میں لے کے گریباں کا تار تار چلے\n\nمقام فیضؔ کوئی راہ میں جچا ہی نہیں\nجو کوئے یار سے نکلے تو سوئے دار چلے',
+        rekhta: 'https://www.rekhta.org/ghazals/gulon-men-rang-bhare-baad-e-nau-bahaar-chale-faiz-ahmad-faiz-ghazals?lang=ur'
+      },
+      ghalib: {
+        ur: 'مرزا غالب', en: 'Mirza Ghalib', years: '1797 – 1869',
+        intro: 'The undisputed master of the Urdu ghazal, whose wit, philosophical depth, and linguistic genius set the standard against which all Urdu poetry is measured. A Delhi man who watched the Mughal world collapse around him, Ghalib transformed personal loss into poetry of universal resonance. His letters alone are considered a landmark of Urdu prose.',
+        poemTitle: 'ہزاروں خواہشیں ایسی', poemType: 'غزل',
+        poem: 'ہزاروں خواہشیں ایسی کہ ہر خواہش پہ دم نکلے\nبہت نکلے مرے ارماں لیکن پھر بھی کم نکلے\n\nنکلنا خلد سے آدم کا سنتے آئے ہیں لیکن\nبہت بے آبرو ہو کر تیرے کوچے سے ہم نکلے\n\nمحبت میں نہیں ہے فرق جینے اور مرنے کا\nاسی کو دیکھ کر جیتے ہیں جس کافر پہ دم نکلے\n\nکہاں میخانے کا دروازہ غالبؔ اور کہاں واعظ\nپر اتنا جانتے ہیں کل وہ جاتا تھا کہ ہم نکلے',
+        rekhta: 'https://www.rekhta.org/ghazals/hazaaron-khwaahishen-aisi-ke-har-khwaahish-pe-dam-nikle-mirza-ghalib-ghazals?lang=ur'
+      },
+      mir: {
+        ur: 'میر تقی میر', en: 'Mir Taqi Mir', years: '1723 – 1810',
+        intro: 'Called <em>Khuda-e-Sukhan</em> — the God of Poetry — Mir\'s ghazals distil heartbreak into verse of uncommon simplicity and devastating power. A Delhi poet who fled to Lucknow as the Mughal empire crumbled, he wrote of love, loss, and the ruins of civilisation with quiet authority. Ghalib himself bowed to Mir.',
+        poemTitle: 'پتّا پتّا بوٹا بوٹا', poemType: 'غزل',
+        poem: 'پتّا پتّا بوٹا بوٹا حال ہمارا جانے ہے\nجانے نہ جانے گل ہی نہ جانے باغ تو سارا جانے ہے\n\nاُلٹی ہو گئیں سب تدبیریں کچھ نہ دوا نے کام کیا\nدیکھا اِس بیماری دل نے آخر کام تمام کیا',
+        rekhta: 'https://www.rekhta.org/ghazals/patta-patta-boota-boota-haal-hamara-jaane-hai-mir-taqi-mir-ghazals?lang=ur'
+      },
+      faraz: {
+        ur: 'احمد فراز', en: 'Ahmed Faraz', years: '1931 – 2008',
+        intro: 'Poet of romantic longing and political resistance who bridged classical and contemporary Urdu with uncommon ease. His <em>Ranjish Hi Sahi</em> became one of the most sung and recited ghazals of the twentieth century, its opening couplet a permanent fixture of heartbreak. Exiled by Zia ul-Haq, he wrote his finest political verse abroad.',
+        poemTitle: 'رنجش ہی سہی', poemType: 'غزل',
+        poem: 'رنجش ہی سہی دل ہی دکھانے کے لیے آ\nآ پھر سے مجھے چھوڑ کے جانے کے لیے آ\n\nپہلے سے مراسم نہ سہی پھر بھی کبھی تو\nرسم و رہِ دنیا ہی نبھانے کے لیے آ\n\nکس کس کو بتائیں گے جدائی کا سبب ہم\nتو مجھ سے خفا ہے تو زمانے کے لیے آ',
+        rekhta: 'https://www.rekhta.org/ghazals/ranjish-hi-sahi-dil-hi-dukhaane-ke-liye-aa-ahmad-faraz-ghazals?lang=ur'
+      },
+      zauq: {
+        ur: 'ذوق', en: 'Sheikh Ibrahim Zauq', years: '1790 – 1854',
+        intro: 'Poet laureate of the last Mughal emperors and one of Delhi\'s most celebrated classical voices. Zauq was revered for his mastery of the qasida and the formal elegance of his language — Ghalib\'s great rival and, for a time, the more celebrated of the two at court. His verse carries the full weight of a world on the edge of extinction.',
+        poemTitle: 'لائی حیات آئے', poemType: 'غزل',
+        poem: 'لائی حیات آئے، قضا لے چلی، چلے\nاپنی خوشی نہ آئے نہ اپنی خوشی چلے',
+        rekhta: 'https://www.rekhta.org/poets/sheikh-ibrahim-zauq/ghazals?lang=ur'
+      },
+      jaun: {
+        ur: 'جون ایلیا', en: 'Jaun Elia', years: '1931 – 2002',
+        intro: 'Poet of philosophical despair, sardonic wit, and radical self-examination. Born in Amroha, exiled to Karachi after Partition, Jaun transformed personal anguish into a new idiom for Urdu poetry — one that spoke with uncommon honesty to a fractured generation. His notebooks, left unedited by design, remain as raw and unsettling as his finest verse.',
+        poemTitle: 'شاید', poemType: 'غزل',
+        poem: '<!-- add featured sher/ghazal here -->',
+        rekhta: 'https://www.rekhta.org/poets/jaun-eliya/all?lang=ur'
+      }
+    };
+
+    function selectPoet(key, btn) {
+      const panel = document.getElementById('poet-feature-panel');
+      const isActive = btn.classList.contains('active');
+
+      // Deactivate all cards
+      document.querySelectorAll('.poet-card-btn').forEach(c => c.classList.remove('active'));
+
+      if (isActive) {
+        // Toggle off
+        panel.style.display = 'none';
+        return;
+      }
+
+      btn.classList.add('active');
+      const p = POETS[key];
+      const isPlaceholder = p.poem.startsWith('<!--');
+
+      panel.innerHTML = `
+        <div class="poet-feature-inner">
+          <div class="poet-feature-meta">
+            <p style="font-family:var(--font-urdu); font-size:1.6rem; direction:rtl; text-align:right; color:var(--ink); line-height:1.7; margin-bottom:4px;">${p.ur}</p>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">${p.en}</p>
+            <p style="font-size:0.7rem; color:var(--ink-faint); margin-bottom:20px;">${p.years}</p>
+            <p style="font-size:0.82rem; line-height:1.75; color:var(--ink-light);">${p.intro}</p>
+            <a href="${p.rekhta}" target="_blank" rel="noopener" style="display:inline-block; margin-top:20px; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line); transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-faint)'">Rekhta ↗</a>
+          </div>
+          <div class="poet-feature-poem">
+            <p style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; direction:rtl; text-align:right;">${p.poemType}</p>
+            <h3 style="font-family:var(--font-urdu); font-size:1.5rem; direction:rtl; text-align:right; color:var(--ink); font-weight:400; margin-bottom:28px; line-height:1.5;">${p.poemTitle}</h3>
+            ${isPlaceholder
+              ? `<p style="font-size:0.85rem; color:var(--ink-faint); font-style:italic;">Featured poem coming soon.</p>`
+              : `<div class="poem-text urdu" style="font-size:1.08rem; line-height:2.7; white-space:pre-line; direction:rtl; text-align:right;">${p.poem}</div>`
+            }
+          </div>
+        </div>`;
+      panel.style.display = 'block';
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
     function filterLang(lang, btn) {
       document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
