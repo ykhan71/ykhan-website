@@ -397,6 +397,7 @@
       <li><a href="poetry.html">Poetry</a></li>
       <li><a href="music.html">Music</a></li>
       <li><a href="books.html">Books</a></li>
+      <li><a href="signal.html">Signal</a></li>
       <li><a href="stocks.html" class="active">Markets</a></li>
     </ul>
     <button class="nav-subscribe" onclick="openModal()">Subscribe</button>
@@ -606,6 +607,7 @@
           <li><a href="poetry.html">Poetry</a></li>
           <li><a href="music.html">Music</a></li>
           <li><a href="books.html">Books</a></li>
+          <li><a href="signal.html">Signal</a></li>
           <li><a href="stocks.html">Markets</a></li>
         </ul>
       </div>
@@ -767,6 +769,7 @@
     }
 
     loadAll();
+    setInterval(loadAll, 30000); // refresh prices every 30 seconds
     loadNews();
 
     /* ── News Feed ── */

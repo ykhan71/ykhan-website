@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Books — Y. Khan</title>
-  <meta name="description" content="What Yousuf Khan is reading." />
+  <title>Signal — Y. Khan</title>
+  <meta name="description" content="Curated links on AI, technology, and what comes next." />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .book-section {
+    .signal-section {
       margin-bottom: 72px;
     }
 
-    .book-section-title {
+    .signal-section-title {
       font-size: 0.72rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
@@ -21,46 +21,50 @@
       border-bottom: 1px solid var(--line);
     }
 
-    .book-card {
-      max-width: 640px;
+    .signal-entry {
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--line);
     }
 
-    .book-title {
+    .signal-entry:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .signal-title {
       font-family: var(--font-serif);
-      font-size: 1.45rem;
+      font-size: 1.2rem;
       font-weight: 400;
       line-height: 1.4;
-      color: var(--ink);
       margin-bottom: 6px;
     }
 
-    .book-author {
-      font-size: 0.88rem;
-      color: var(--ink-light);
-      margin-bottom: 20px;
-    }
-
-    .book-author a {
-      color: var(--ink-light);
+    .signal-title a {
+      color: var(--ink);
       text-decoration: none;
       border-bottom: 1px solid var(--line);
     }
 
-    .book-author a:hover {
-      color: var(--ink);
+    .signal-title a:hover {
       border-color: var(--ink);
     }
 
-    .book-note {
-      font-size: 0.92rem;
+    .signal-meta {
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .signal-note {
       font-family: var(--font-serif);
+      font-size: 0.92rem;
       font-style: italic;
       color: var(--ink-light);
       line-height: 1.75;
-    }
-
-    @media (max-width: 640px) {
-      .book-title { font-size: 1.2rem; }
+      max-width: 640px;
     }
   </style>
 </head>
@@ -72,8 +76,8 @@
     <ul class="nav-links">
       <li><a href="poetry.html">Poetry</a></li>
       <li><a href="music.html">Music</a></li>
-      <li><a href="books.html" class="active">Books</a></li>
-      <li><a href="signal.html">Signal</a></li>
+      <li><a href="books.html">Books</a></li>
+      <li><a href="signal.html" class="active">Signal</a></li>
       <li><a href="stocks.html">Markets</a></li>
     </ul>
     <button class="nav-subscribe" onclick="openModal()">Subscribe</button>
@@ -84,47 +88,44 @@
 
       <!-- Page Header -->
       <header class="page-header">
-        <p class="eyebrow">Books</p>
-        <h1>What I'm reading</h1>
-        <p class="subtitle">Books on the nightstand, in the bag, and next in line.</p>
+        <p class="eyebrow">Signal</p>
+        <h1>Worth reading</h1>
+        <p class="subtitle">Articles, essays, and ideas on AI and what comes next.</p>
       </header>
 
       <!-- ── Art Panel ── -->
       <div style="margin-bottom:64px; padding-bottom:56px; border-bottom:1px solid var(--line);">
-        <img src="images/art/girl-reading.jpg" alt="A Young Girl Reading — Jean-Honoré Fragonard, 1776" style="width:100%; max-width:560px; display:block; margin:0 auto; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09);" />
+        <img src="images/art/wanderer.jpg" alt="Wanderer above the Sea of Fog — Caspar David Friedrich, 1818" style="width:100%; display:block; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09); max-height:520px; object-fit:cover; object-position:center top;" />
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:16px; align-items:start;">
           <p style="font-size:0.67rem; color:var(--ink-faint); line-height:1.5; margin:0;">
-            <em>A Young Girl Reading</em>, c. 1776 &nbsp;·&nbsp;
-            <a href="https://en.wikipedia.org/wiki/Jean-Honor%C3%A9_Fragonard" target="_blank" rel="noopener" style="color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line);">Jean-Honoré Fragonard</a>
-            &nbsp;·&nbsp; National Gallery of Art, Washington
+            <em>Wanderer above the Sea of Fog</em>, 1818 &nbsp;·&nbsp;
+            <a href="https://en.wikipedia.org/wiki/Caspar_David_Friedrich" target="_blank" rel="noopener" style="color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line);">Caspar David Friedrich</a>
+            &nbsp;·&nbsp; Kunsthalle Hamburg
           </p>
-          <p style="font-family:var(--font-serif); font-size:1rem; font-weight:300; line-height:1.7; color:var(--ink); margin:0; text-align:right;">Jean-Honoré Fragonard (1732–1806) was a French painter of the Rococo — known for wit, lightness, and scenes of private pleasure. This one, painted in a single sitting around 1776, shows a young woman absorbed in a book: yellow silk, a tilted head, and the complete unavailability of someone lost in a page. That's what a good book does.</p>
+          <p style="font-family:var(--font-serif); font-size:1rem; font-weight:300; line-height:1.7; color:var(--ink); margin:0; text-align:right;">Caspar David Friedrich (1774–1840) painted a figure standing on a peak, looking out at a vast and uncertain landscape below. A painting about confronting the unknown — which is the only honest position anyone can take right now about what AI becomes.</p>
         </div>
       </div>
 
-      <!-- Currently Reading -->
-      <section class="book-section">
-        <p class="book-section-title">Currently reading</p>
-        <div class="book-card">
-          <p class="book-title"><a href="https://www.amazon.com/Secret-Secrets-Novel-Robert-Langdon/dp/0593313011" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line);">The Secret of Secrets</a></p>
-          <p class="book-author">
-            <a href="https://www.amazon.com/Dan-Brown/e/B000AP9DSU/ref=dp_byline_cont_book_1" target="_blank" rel="noopener">Dan Brown</a>
-            &nbsp;·&nbsp; Robert Langdon series
-          </p>
-          <p class="book-note">Dan Brown at his most propulsive. The Langdon novels work because they make you feel like the cleverest person in the room — right up until you aren't. A book you pick up meaning to read one chapter and put down an hour later.</p>
-        </div>
-      </section>
+      <!-- Links -->
+      <section class="signal-section">
+        <p class="signal-section-title">AI &amp; the future</p>
 
-      <!-- Next Up -->
-      <section class="book-section">
-        <p class="book-section-title">Next</p>
-        <div class="book-card">
-          <p class="book-title"><a href="https://www.amazon.com/Meatless-Days-Sara-Suleri-Goodyear/dp/0226779815" target="_blank" rel="noopener" style="color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line);">Meatless Days</a></p>
-          <p class="book-author">
-            <a href="https://www.amazon.com/Sara-Suleri-Goodyear/e/B001HNZ1SK/ref=dp_byline_cont_book_1" target="_blank" rel="noopener">Sara Suleri Goodyear</a>
+        <div class="signal-entry">
+          <p class="signal-title">
+            <a href="https://ai-2027.com/" target="_blank" rel="noopener">AI 2027</a>
           </p>
-          <p class="book-note">A memoir in fragments — Pakistan, memory, food, and loss braided together in prose that refuses to be straightforward about any of it. One of those books that people who've read it tend to bring up unprompted years later.</p>
+          <p class="signal-meta">ai-2027.com &nbsp;·&nbsp; Daniel Kokotajlo et al. · AI Futures Project</p>
+          <p class="signal-note">Written by Daniel Kokotajlo — a former OpenAI researcher who left over safety concerns — along with a team of AI researchers and forecasters, AI 2027 is a month-by-month scenario of how the next few years of AI development might unfold. It traces the path from today's capable but limited models to fully automated AI research, recursive self-improvement, and an intelligence explosion — all by 2027. The authors are careful to call it a scenario rather than a prediction, but it is built on real observations about current trajectories, and the detail is uncomfortable in the best way. Required reading if you want to understand what the people closest to this technology are actually worried about.</p>
         </div>
+
+        <div class="signal-entry">
+          <p class="signal-title">
+            <a href="https://ai-2040.com/" target="_blank" rel="noopener">AI 2040: Plan A</a>
+          </p>
+          <p class="signal-meta">ai-2040.com &nbsp;·&nbsp; Thomas Larsen, Daniel Kokotajlo et al. · AI Futures Project</p>
+          <p class="signal-note">The companion piece to AI 2027 — and a rarer thing in this space: an attempt at a positive vision, not just a warning. Plan A argues that humanity could navigate to superintelligence without catastrophe if we delay the intelligence explosion until 2040, make all AI research fully transparent, and allow dozens of companies globally to reach the frontier together rather than racing in secret. The authors, several of whom have worked inside the leading AI labs, are clear that this is a recommendation and not a prediction. What's striking is how seriously they subject their own proposal to scrutiny — they write the scenario in which it actually works, which forces them to confront every place it could fail.</p>
+        </div>
+
       </section>
 
     </div>
