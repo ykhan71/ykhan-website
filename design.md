@@ -39,7 +39,9 @@ Seven poet cards in a CSS grid. Cards are interactive buttons that reveal a feat
 
 #### Card Rules
 - Active cards get `border-color: var(--ink); background: var(--bg-soft)`
-- The **"New" badge** marks the most recently updated card. It moves whenever a new poem is added or updated. Current: **Mir Taqi Mir**
+- The **"New" badge** marks the most recently updated card. It must move every time a poet's poem is added or changed — only one card carries it at a time. Current: **Ahmed Faraz**
+- Badge HTML: `<span style="position:absolute; top:10px; left:10px; font-size:0.6rem; font-family:var(--font-sans); letter-spacing:0.1em; text-transform:uppercase; background:var(--accent); color:#fff; padding:2px 7px; border-radius:20px;">New</span>` — requires `style="position:relative;"` on the parent `<button>`
+- To move the badge: remove the `<span>` from the old card and add it (with `position:relative` on the button) to the new card
 - **Jaun Elia** is greyed out (`opacity: 0.38`, non-clickable `<div>`) — no poem content yet
 - All other poets have content and are fully active
 
@@ -49,8 +51,8 @@ Seven poet cards in a CSS grid. Cards are interactive buttons that reveal a feat
 |---|---|---|---|---|---|
 | Faiz Ahmed Faiz | فیض احمد فیض | 1911–1984 | گلوں میں رنگ بھرے | غزل | Active |
 | Mirza Ghalib | مرزا غالب | 1797–1869 | ہزاروں خواہشیں ایسی | غزل | Active |
-| Mir Taqi Mir | میر تقی میر | 1723–1810 | کیا بود و باش پوچھو ہو | قطعہ | Active · **New** |
-| Ahmed Faraz | احمد فراز | 1931–2008 | رنجش ہی سہی | غزل | Active |
+| Mir Taqi Mir | میر تقی میر | 1723–1810 | کیا بود و باش پوچھو ہو | قطعہ | Active |
+| Ahmed Faraz | احمد فراز | 1931–2008 | سنا ہے لوگ اسے آنکھ بھر کے دیکھتے ہیں | غزل | Active · **New** |
 | Sheikh Ibrahim Zauq | ذوق | 1790–1854 | لائی حیات آئے | غزل | Active |
 | Jaun Elia | جون ایلیا | 1931–2002 | — | — | Greyed out |
 | Muztar Khairabadi | مضطر خیرآبادی | 1865–1927 | بحرِ طویل | مسلسل غزل | Active |
@@ -59,8 +61,16 @@ Seven poet cards in a CSS grid. Cards are interactive buttons that reveal a feat
 
 Two-column panel:
 - **Left column** (`.poet-feature-meta`): Urdu name, English name, years, intro paragraph, Rekhta link (if available)
-- **Right column** (`.poet-feature-poem`): poem type label, poem title in Urdu, poem text
-- If no poem yet (placeholder `<!-- -->`): shows "Featured poem coming soon."
+- **Right column** (`.poet-feature-poem`): poem type label, then poem title as a clickable `<details>/<summary>` — click the title to expand the full poem below it
+- If no poem yet (placeholder `<!-- -->`): shows "Featured poem coming soon." (title non-interactive)
+
+#### Urdu Font & Colour Standards (apply consistently everywhere)
+
+- **Font:** always `font-family: var(--font-urdu)` for all Urdu text — poem body, titles, card names, panel headers
+- **Poem body text:** `font-size: 0.96rem; line-height: 2.4; color: var(--ink)` — no `-light` or `-faint` variants
+- **Poem titles:** `font-family: var(--font-urdu); font-size: 1.5rem; color: var(--ink); font-weight: 400; line-height: 1.5`
+- **Do not use `var(--ink-light)` for poem body text** — this was the source of the visual inconsistency between Muztar and other poets
+- The Muztar verse style (0.96rem, 2.4 line-height, full ink) is the reference standard for all poem rendering
 
 #### Feature Panel — Muztar (special full-width layout)
 
