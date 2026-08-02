@@ -540,6 +540,44 @@
 
       btn.classList.add('active');
       const p = POETS[key];
+
+      // Special rendering for poets with a verses array (e.g. Muztar's Behr-e-Taweel)
+      if (p.verses) {
+        const verseItems = p.verses.map((v, i) => `
+          <details style="border-top:1px solid var(--line); padding:0;">
+            <summary style="cursor:pointer; padding:14px 0; font-family:var(--font-urdu); font-size:1rem; direction:rtl; text-align:right; color:var(--ink-light); list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px; user-select:none;">
+              <span>${v.label}</span>
+              <span style="font-family:var(--font-sans); font-size:0.68rem; letter-spacing:0.08em; color:var(--ink-faint); flex-shrink:0; text-transform:uppercase;">مصرع ${i + 1}</span>
+            </summary>
+            <div style="padding:4px 0 20px; font-family:var(--font-urdu); font-size:0.96rem; line-height:2.4; direction:rtl; text-align:right; color:var(--ink-light);">${v.text}</div>
+          </details>`).join('');
+
+        panel.innerHTML = `
+          <div style="padding:36px 40px;">
+            <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:6px; flex-wrap:wrap; justify-content:flex-end; direction:rtl;">
+              <p style="font-family:var(--font-urdu); font-size:1.8rem; color:var(--ink); line-height:1.5; margin:0;">${p.ur}</p>
+              <p style="font-size:0.7rem; color:var(--ink-faint); margin:0; direction:ltr;">${p.years}</p>
+            </div>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:20px;">${p.en}</p>
+            <p style="font-size:0.85rem; line-height:1.8; color:var(--ink-light); margin-bottom:32px;">${p.intro}</p>
+
+            <div style="border-top:2px solid var(--line); padding-top:28px; margin-bottom:8px;">
+              <p style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:10px;">بحرِ طویل — A Note on the Form</p>
+              <p style="font-size:0.84rem; line-height:1.85; color:var(--ink-light); margin-bottom:28px;">${p.behreIntro}</p>
+              <p style="font-size:0.72rem; color:var(--ink-faint); margin-bottom:0;">Click a verse to expand — each is a single unbroken line.</p>
+            </div>
+
+            <div style="margin-top:4px;">
+              ${verseItems}
+              <div style="border-top:1px solid var(--line);"></div>
+            </div>
+          </div>`;
+        panel.style.display = 'block';
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+
+      // Standard two-column rendering for all other poets
       const isPlaceholder = p.poem.startsWith('<!--');
 
       panel.innerHTML = `
@@ -556,8 +594,7 @@
             <h3 style="font-family:var(--font-urdu); font-size:1.5rem; direction:rtl; text-align:right; color:var(--ink); font-weight:400; margin-bottom:28px; line-height:1.5;">${p.poemTitle}</h3>
             ${isPlaceholder
               ? `<p style="font-size:0.85rem; color:var(--ink-faint); font-style:italic;">Featured poem coming soon.</p>`
-              : `<div class="poem-text urdu" style="font-size:1.08rem; line-height:2.7; white-space:pre-line; direction:rtl; text-align:right;">${p.poem}</div>
-                 ${p.poemNote ? `<p style="margin-top:20px; font-size:0.78rem; color:var(--ink-faint); font-style:italic;">${p.poemNote}</p>` : ''}`
+              : `<div class="poem-text urdu" style="font-size:1.08rem; line-height:2.7; white-space:pre-line; direction:rtl; text-align:right;">${p.poem}</div>`
             }
           </div>
         </div>`;
