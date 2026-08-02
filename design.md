@@ -167,7 +167,7 @@ Paintings by Ottoman artist Osman Hamdi Bey (1842–1910) appear on all four pag
 Two-column grid above the main section content, separated from it by a border:
 
 ```html
-<div style="display:grid; grid-template-columns:200px 1fr; gap:40px; align-items:start; margin-bottom:64px; padding-bottom:56px; border-bottom:1px solid var(--line);">
+<div style="display:grid; grid-template-columns:320px 1fr; gap:48px; align-items:start; margin-bottom:64px; padding-bottom:56px; border-bottom:1px solid var(--line);">
   <div>
     <img src="images/art/FILENAME.jpg" alt="TITLE — Osman Hamdi Bey, YEAR" style="width:100%; display:block; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09);" />
     <p style="margin-top:8px; font-size:0.67rem; color:var(--ink-faint); line-height:1.5;">
