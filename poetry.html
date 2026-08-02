@@ -228,6 +228,12 @@
             <p style="font-size:0.7rem; color:var(--ink-faint);">1931 – 2002</p>
           </button>
 
+          <button class="poet-card-btn" data-poet="muztar" onclick="selectPoet('muztar',this)">
+            <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">مضطر خیرآبادی</p>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Muztar Khairabadi</p>
+            <p style="font-size:0.7rem; color:var(--ink-faint);">1865 – 1927</p>
+          </button>
+
         </div>
 
         <!-- Feature panel — populated by selectPoet() -->
@@ -303,8 +309,11 @@
           <div class="poem-body">
             <h2 class="urdu-title">بحرِ طویل</h2>
 
-            <p style="font-size:0.88rem; line-height:1.85; color:var(--ink-light); margin-bottom:6px;">
-              Muztar Khairabadi (1865–1927) was a classical Urdu poet from Khairabad, Uttar Pradesh — his pen name <em>مضطر</em> (restless) capturing the anguished ardour of his verse. His collected works, <em>Khirman</em>, run to five volumes. This celebrated <em>Behre Taweel</em> is a <em>musalsal ghazal</em> of eight continuous verses, each a single unbroken line deploying the meter Fa'ilatun (فعلاتن) repeated nearly a hundred times — producing a breathless, torrential rhythm without parallel in Urdu poetry. Javed Akhtar's recitation of it on Instagram in 2024 brought the poem back into wide public consciousness.
+            <p style="font-size:0.88rem; line-height:1.85; color:var(--ink-light); margin-bottom:12px;">
+              This <em>musalsal ghazal</em> of eight verses is one of the most extraordinary compositional feats in the Urdu tradition. It is structured as a ghazal — yet defies the conventional brevity of that form by stretching each <em>misra</em> (line) to breathtaking lengths. The chosen meter, Fa'ilatun (فعلاتن) — short-short-long-long — repeats nearly a hundred times in each line, creating a rhythmic and mesmerising cascade that flows like an unstoppable river of words.
+            </p>
+            <p style="font-size:0.82rem; line-height:1.8; color:var(--ink-faint); margin-bottom:6px;">
+              A note on classification: <em>Behr</em> (بحر) in Urdu prosody means "meter," so <em>Behr-e-Taweel</em> describes a metrical form — an extraordinarily extended meter applied within the ghazal structure — rather than a standalone genre. The traditional genres (<em>asnaf</em>) of Urdu poetry are ghazal, qasida, masnavi, nazm, and so on; Muztar's poem is a ghazal at its core, distinguished by a meter of unparalleled length and ambition.
             </p>
             <p style="font-size:0.78rem; color:var(--ink-faint); margin-bottom:28px; letter-spacing:0.02em;">Click a verse to expand.</p>
 
@@ -496,6 +505,14 @@
         poemTitle: 'شاید', poemType: 'غزل',
         poem: '<!-- add featured sher/ghazal here -->',
         rekhta: 'https://www.rekhta.org/poets/jaun-eliya/all?lang=ur'
+      },
+      muztar: {
+        ur: 'مضطر خیرآبادی', en: 'Muztar Khairabadi', years: '1865 – 1927',
+        intro: 'Classical Urdu poet from Khairabad, Uttar Pradesh, whose pen name <em>مضطر</em> (restless) captured the anguished ardour of his verse. His collected works, <em>Khirman</em>, run to five volumes. He is best remembered for his extraordinary <em>Behr-e-Taweel</em> — a musalsal ghazal of eight continuous verses, each a single unbroken line of nearly one hundred metrical feet, producing a rhythmic cascade without parallel in Urdu poetry. Javed Akhtar\'s recitation of it on Instagram in 2024 brought the poem back into wide public consciousness.',
+        poemTitle: 'بحرِ طویل — پہلا مصرع', poemType: 'مسلسل غزل',
+        poem: 'اسے کیوں ہم نے دیا دل، جو ہے بے مہری میں کامل، جسے عادت ہے جفا کی،\nجسے چِڑھ مہر ووفا کی، جسے آتا نہیں آنا، غم وحسرت کا مٹانا، جو ستم میں ہے یگانہ،\nجسے کہتا ہے زمانہ، بُت بے مہر ودغا باز، جفا پیشہ فسوں ساز، ستم خانہ براندازِ\nغضب جس کا ہر اِک ناز، نظر فتنہ مژہ تیر، بلا زلف گرہ گیر، غم ورنج کا بانی، قلق ودرد\nکا موجب، ستم وجور کا استاد، جفا کاری میں ماہر، جو ستم کیش وستم گر، جو ستم پیشہ ہے\nدلبر، جسے آتی نہیں اُلفت، جو سمجھتا نہیں چاہت، جو تسلّی کو نہ سمجھے، جو تشفّی کو نہ\nجانے، جو کرے قول نہ پورا، کرے ہر کام ادھورا، یہی دن رات تصوّر ہے کہ ناحق\nاسے چاہا، جو نہ آئے نہ بلائے، نہ کبھی پاس بٹھائے، نہ رخ صاف دکھائے، نہ کوئی\nبات سنائے، نہ لگی دل کی بجھائے، نہ کلی دل کی کھلائے، نہ غم ورنج گھٹائے، نہ رہ ورسم\nبڑھائے، جو کہو کچھ تو خفا ہو، کہے شکوے کی ضرورت، جو یہی ہے تو نہ چاہو، جو نہ\nچاہوگے تو کیا ہے، نہ نباہوگے تو کیا ہے، بہت اترائو نہ دل دے کے، یہ کس کام کا دل\nہے، غم واندوہ کا مارا، ابھی چاہوں تو میں رکھ دوں اسے تلووں سے مسل کر، ابھی منہ\nدیکھتے رہ جاؤ کہ ہیں! ان کو ہوا کیا، کہ انہوں نے مرا دل لے کے مرے ہاتھ سے کھویا',
+        poemNote: 'پہلا مصرع — the full eight-verse poem is below.',
+        rekhta: 'https://medium.com/@kamathuday/muztar-khairabadis-bahr-e-taweel-64d76df994b1'
       }
     };
 
@@ -523,14 +540,15 @@
             <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">${p.en}</p>
             <p style="font-size:0.7rem; color:var(--ink-faint); margin-bottom:20px;">${p.years}</p>
             <p style="font-size:0.82rem; line-height:1.75; color:var(--ink-light);">${p.intro}</p>
-            <a href="${p.rekhta}" target="_blank" rel="noopener" style="display:inline-block; margin-top:20px; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line); transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-faint)'">Rekhta ↗</a>
+            <a href="${p.rekhta}" target="_blank" rel="noopener" style="display:inline-block; margin-top:20px; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line); transition:color 0.2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--ink-faint)'">${key === 'muztar' ? 'Medium ↗' : 'Rekhta ↗'}</a>
           </div>
           <div class="poet-feature-poem">
             <p style="font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px; direction:rtl; text-align:right;">${p.poemType}</p>
             <h3 style="font-family:var(--font-urdu); font-size:1.5rem; direction:rtl; text-align:right; color:var(--ink); font-weight:400; margin-bottom:28px; line-height:1.5;">${p.poemTitle}</h3>
             ${isPlaceholder
               ? `<p style="font-size:0.85rem; color:var(--ink-faint); font-style:italic;">Featured poem coming soon.</p>`
-              : `<div class="poem-text urdu" style="font-size:1.08rem; line-height:2.7; white-space:pre-line; direction:rtl; text-align:right;">${p.poem}</div>`
+              : `<div class="poem-text urdu" style="font-size:1.08rem; line-height:2.7; white-space:pre-line; direction:rtl; text-align:right;">${p.poem}</div>
+                 ${p.poemNote ? `<p style="margin-top:20px; font-size:0.78rem; color:var(--ink-faint); font-style:italic;">${p.poemNote}</p>` : ''}`
             }
           </div>
         </div>`;
