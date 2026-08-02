@@ -10,11 +10,45 @@
     /* ── Hero ── */
     .hero {
       min-height: calc(100vh - var(--nav-h));
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 64px;
+      align-items: center;
       padding: 80px 0 60px;
     }
+
+    .hero-text { display: flex; flex-direction: column; justify-content: center; }
+
+    .hero-painting {
+      position: relative;
+      align-self: center;
+    }
+
+    .hero-painting img {
+      width: 100%;
+      display: block;
+      border-radius: 2px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+      object-fit: cover;
+      max-height: 580px;
+    }
+
+    .painting-credit {
+      margin-top: 10px;
+      font-size: 0.68rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.04em;
+      line-height: 1.5;
+    }
+
+    .painting-credit a {
+      color: var(--ink-faint);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      transition: color 0.2s;
+    }
+
+    .painting-credit a:hover { color: var(--ink-light); }
 
     .hero-eyebrow {
       font-size: 0.72rem;
@@ -248,6 +282,11 @@
       color: var(--ink);
     }
 
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-painting { display: none; }
+    }
+
     @media (max-width: 640px) {
       .section-grid { grid-template-columns: 1fr; }
       .about-strip { flex-direction: column; gap: 24px; }
@@ -274,12 +313,23 @@
 
       <!-- Hero -->
       <section class="hero">
-        <p class="hero-eyebrow">ykhan.org</p>
-        <h1>Words, sound,<br>and signal.</h1>
-        <p class="hero-sub">A personal space for poetry, music I love, and thoughts on the markets — by Yousuf Khan.</p>
-        <div class="hero-actions">
-          <button class="hero-cta primary" onclick="openModal()">Subscribe</button>
-          <a href="poetry.html" class="hero-cta secondary">Explore</a>
+        <div class="hero-text">
+          <p class="hero-eyebrow">ykhan.org</p>
+          <h1>Words, sound,<br>and signal.</h1>
+          <p class="hero-sub">A personal space for poetry, music I love, and thoughts on the markets — by Yousuf Khan.</p>
+          <div class="hero-actions">
+            <button class="hero-cta primary" onclick="openModal()">Subscribe</button>
+            <a href="poetry.html" class="hero-cta secondary">Explore</a>
+          </div>
+        </div>
+        <div class="hero-painting">
+          <img src="images/art/tortoise-trainer.jpg" alt="The Tortoise Trainer — Osman Hamdi Bey, 1906" />
+          <p class="painting-credit">
+            <em>The Tortoise Trainer</em>, 1906 &nbsp;·&nbsp;
+            <a href="https://en.wikipedia.org/wiki/Osman_Hamdi_Bey" target="_blank" rel="noopener">Osman Hamdi Bey</a>
+            (1842–1910) — Ottoman painter, archaeologist, and founder of the Istanbul Archaeology Museum.
+            His works depict scholars, musicians, and contemplative figures in classical Islamic settings.
+          </p>
         </div>
       </section>
 

@@ -151,6 +151,51 @@ At ≤640px: price column hidden, note entries collapse to single column.
 
 ---
 
+## Osman Hamdi Bey — Art Feature
+
+Paintings by Ottoman artist Osman Hamdi Bey (1842–1910) appear on all four pages. Images are stored locally in `images/art/`.
+
+| Page | File | Painting | Year |
+|---|---|---|---|
+| `index.html` | `tortoise-trainer.jpg` | The Tortoise Trainer | 1906 |
+| `poetry.html` | `scholar.jpg` | Scholar | 1878 |
+| `music.html` | `musician-girls.jpg` | Two Musician Girls | 1880 |
+| `stocks.html` | `carpet-dealer.jpg` | The Carpet Dealer | 1888 |
+
+### Layout Pattern — Art Panel (poetry, music, stocks)
+
+Two-column grid above the main section content, separated from it by a border:
+
+```html
+<div style="display:grid; grid-template-columns:200px 1fr; gap:40px; align-items:start; margin-bottom:64px; padding-bottom:56px; border-bottom:1px solid var(--line);">
+  <div>
+    <img src="images/art/FILENAME.jpg" alt="TITLE — Osman Hamdi Bey, YEAR" style="width:100%; display:block; border-radius:2px; box-shadow:0 4px 20px rgba(0,0,0,0.09);" />
+    <p style="margin-top:8px; font-size:0.67rem; color:var(--ink-faint); line-height:1.5;">
+      <em>TITLE</em>, YEAR &nbsp;·&nbsp;
+      <a href="https://en.wikipedia.org/wiki/Osman_Hamdi_Bey" target="_blank" rel="noopener" style="color:var(--ink-faint); text-decoration:none; border-bottom:1px solid var(--line);">Osman Hamdi Bey</a>
+    </p>
+  </div>
+  <div style="padding-top:4px;">
+    <p style="font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:14px;">On the wall</p>
+    <p style="font-family:var(--font-serif); font-size:1.15rem; font-weight:300; line-height:1.7; color:var(--ink);">INTRO TEXT — connects the painting to the page's theme.</p>
+  </div>
+</div>
+```
+
+### Landing Page (`index.html`) — Hero Layout
+
+Two-column CSS grid (text left, painting right). Painting hides at ≤900px.
+
+```css
+.hero { grid-template-columns: 1fr 420px; gap: 64px; }
+.hero-painting img { width:100%; max-height:580px; object-fit:cover; border-radius:2px; }
+@media (max-width:900px) { .hero { grid-template-columns:1fr; } .hero-painting { display:none; } }
+```
+
+Credit caption sits below the painting image: italic title, year, linked artist name, one-line bio.
+
+---
+
 ## Pending / Future
 
 - **Jaun Elia** — add a featured sher or ghazal; card will become active and lose grey-out
