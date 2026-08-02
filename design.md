@@ -52,10 +52,11 @@ Seven poet cards in a CSS grid. Cards are interactive buttons that reveal a feat
 | Faiz Ahmed Faiz | فیض احمد فیض | 1911–1984 | گلوں میں رنگ بھرے | غزل | Active |
 | Mirza Ghalib | مرزا غالب | 1797–1869 | ہزاروں خواہشیں ایسی | غزل | Active |
 | Mir Taqi Mir | میر تقی میر | 1723–1810 | کیا بود و باش پوچھو ہو | قطعہ | Active |
-| Ahmed Faraz | احمد فراز | 1931–2008 | سنا ہے لوگ اسے آنکھ بھر کے دیکھتے ہیں | غزل | Active · **New** |
+| Ahmed Faraz | احمد فراز | 1931–2008 | سنا ہے لوگ اسے آنکھ بھر کے دیکھتے ہیں | غزل | Active |
 | Sheikh Ibrahim Zauq | ذوق | 1790–1854 | لائی حیات آئے | غزل | Active |
 | Jaun Elia | جون ایلیا | 1931–2002 | — | — | Greyed out |
 | Muztar Khairabadi | مضطر خیرآبادی | 1865–1927 | بحرِ طویل | مسلسل غزل | Active |
+| Mohsin Naqvi | محسن نقوی | 1947–1996 | ہم یوسفِ زماں تھے | غزل | Active · **New** |
 
 #### Feature Panel — Standard Layout (all poets except Muztar)
 

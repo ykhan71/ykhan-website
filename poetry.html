@@ -225,8 +225,7 @@
             <p style="font-size:0.7rem; color:var(--ink-faint);">1723 – 1810</p>
           </button>
 
-          <button class="poet-card-btn" data-poet="faraz" onclick="selectPoet('faraz',this)" style="position:relative;">
-            <span style="position:absolute; top:10px; left:10px; font-size:0.6rem; font-family:var(--font-sans); letter-spacing:0.1em; text-transform:uppercase; background:var(--accent); color:#fff; padding:2px 7px; border-radius:20px;">New</span>
+          <button class="poet-card-btn" data-poet="faraz" onclick="selectPoet('faraz',this)">
             <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">احمد فراز</p>
             <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Ahmed Faraz</p>
             <p style="font-size:0.7rem; color:var(--ink-faint);">1931 – 2008</p>
@@ -245,10 +244,17 @@
             <p style="font-size:0.7rem; color:var(--ink-faint);">1931 – 2002</p>
           </div>
 
-          <button class="poet-card-btn" data-poet="muztar" onclick="selectPoet('muztar',this)" style="position:relative;">
+          <button class="poet-card-btn" data-poet="muztar" onclick="selectPoet('muztar',this)">
             <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">مضطر خیرآبادی</p>
             <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Muztar Khairabadi</p>
             <p style="font-size:0.7rem; color:var(--ink-faint);">1865 – 1927</p>
+          </button>
+
+          <button class="poet-card-btn" data-poet="mohsin" onclick="selectPoet('mohsin',this)" style="position:relative;">
+            <span style="position:absolute; top:10px; left:10px; font-size:0.6rem; font-family:var(--font-sans); letter-spacing:0.1em; text-transform:uppercase; background:var(--accent); color:#fff; padding:2px 7px; border-radius:20px;">New</span>
+            <p style="font-family:var(--font-urdu); font-size:1.25rem; direction:rtl; text-align:right; color:var(--ink); margin-bottom:5px; line-height:1.6;">محسن نقوی</p>
+            <p style="font-size:0.78rem; color:var(--ink-light); margin-bottom:2px;">Mohsin Naqvi</p>
+            <p style="font-size:0.7rem; color:var(--ink-faint);">1947 – 1996</p>
           </button>
 
         </div>
@@ -522,6 +528,12 @@
         poemTitle: 'شاید', poemType: 'غزل',
         poem: '<!-- add featured sher/ghazal here -->',
         rekhta: 'https://www.rekhta.org/poets/jaun-eliya/all?lang=ur'
+      },
+      mohsin: {
+        ur: 'محسن نقوی', en: 'Mohsin Naqvi', years: '1947 – 1996',
+        intro: 'Pakistani poet whose ghazals moved between classical devotion and lyric heartbreak with uncommon ease. As celebrated for his poetry on the tragedy of Karbala as for his ghazals of love and loss, Mohsin Naqvi was shot in Lahore at 48 — leaving behind a body of work whose quiet devastation has only grown with time.',
+        poemTitle: 'ہم یوسفِ زماں تھے', poemType: 'غزل',
+        poem: 'ہم یوسفِ زماں تھے ابھی کل کی بات ہے\nتم ہم پہ مہرباں تھے ابھی کل کی بات ہے\n\nوہ دن بھی تھے کہ ہم ہی تمہاری زباں پہ تھے\nموضوعِ داستاں تھے ابھی کل کی بات ہے\n\nجن دوستوں کی آج کمی ہے حیات میں\nوہ اپنے درمیاں تھے ابھی کل کی بات ہے\n\nکچھ حادثوں سے گر گئے محسن زمین پر\nہم رشکِ آسماں تھے ابھی کل کی بات ہے'
       },
       muztar: {
         ur: 'مضطر خیرآبادی', en: 'Muztar Khairabadi', years: '1865 – 1927',
