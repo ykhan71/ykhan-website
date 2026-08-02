@@ -166,6 +166,11 @@ At ≤640px: price column hidden, note entries collapse to single column.
 - Hard refresh (Ctrl+Shift+R) or incognito window if browser cache shows stale content
 - **"New" badge** — update manually in HTML whenever a poet's content changes; only one card carries it at a time
 
+## Claude's Working Rules
+
+1. **Read `design.md` before making any change** — always load this file first to understand current design decisions, standards, and constraints before touching any code.
+2. **Update `design.md` after any change** — after every edit, check whether it represents a design or requirement change and update this file accordingly. This keeps the document the single source of truth.
+
 ---
 
 ## Constraints
