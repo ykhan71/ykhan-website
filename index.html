@@ -283,11 +283,12 @@
     }
 
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-painting { display: none; }
+      .hero { grid-template-columns: 1fr 280px; gap: 40px; }
     }
 
     @media (max-width: 640px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-painting { display: none; }
       .section-grid { grid-template-columns: 1fr; }
       .about-strip { flex-direction: column; gap: 24px; }
       .section-card { padding: 36px 24px; }
