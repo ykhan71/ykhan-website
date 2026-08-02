@@ -13,6 +13,7 @@ Personal website for Yousuf Khan, hosted on Cloudflare Pages, auto-deployed from
 | Landing | `index.html` | Live |
 | Poetry | `poetry.html` | Live |
 | Music | `music.html` | Live |
+| Books | `books.html` | Live |
 | Stocks | `stocks.html` | Live |
 
 ---
@@ -152,16 +153,19 @@ At ≤640px: price column hidden, note entries collapse to single column.
 
 ---
 
-## Osman Hamdi Bey — Art Feature
+## Art Feature — Paintings
 
-Paintings by Ottoman artist Osman Hamdi Bey (1842–1910) appear on all four pages. Images are stored locally in `images/art/`.
+Paintings appear on all pages. Images stored locally in `images/art/`. The first four pages use Osman Hamdi Bey; the Books page uses Fragonard (OHB's reading works have religious connotations — Quran reading — which doesn't fit a secular reading list).
 
-| Page | File | Painting | Year |
-|---|---|---|---|
-| `index.html` | `tortoise-trainer.jpg` | The Tortoise Trainer | 1906 |
-| `poetry.html` | `scholar.jpg` | Scholar | 1878 |
-| `music.html` | `musician-girls.jpg` | Two Musician Girls | 1880 |
-| `stocks.html` | `carpet-dealer.jpg` | The Carpet Dealer | 1888 |
+| Page | File | Painting | Artist | Year |
+|---|---|---|---|---|
+| `index.html` | `tortoise-trainer.jpg` | The Tortoise Trainer | Osman Hamdi Bey | 1906 |
+| `poetry.html` | `scholar.jpg` | Scholar | Osman Hamdi Bey | 1878 |
+| `music.html` | `musician-girls.jpg` | Two Musician Girls | Osman Hamdi Bey | 1880 |
+| `books.html` | `girl-reading.jpg` | A Young Girl Reading | Jean-Honoré Fragonard | c. 1776 |
+| `stocks.html` | `carpet-dealer.jpg` | The Carpet Dealer | Osman Hamdi Bey | 1888 |
+
+**Downloading the books page painting:** Fragonard's *A Young Girl Reading* is public domain. Download high-res from the [National Gallery of Art](https://www.nga.gov/collection/art-object-page.46189.html) or [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fragonard,_Jean-Honor%C3%A9_-_A_Young_Girl_Reading_-_c._1776.jpg). Save as `images/art/girl-reading.jpg`.
 
 ### Layout Pattern — Art Panel (poetry, stocks)
 
@@ -240,11 +244,29 @@ Embed URL format: `https://open.spotify.com/embed/track/TRACK_ID?utm_source=gene
 
 ---
 
+## Books Page (`books.html`)
+
+Personal reading list. Two sections: "Currently reading" and "Next". Each book displays as a card with title, linked author, and an italic serif note.
+
+### Reading List
+
+| Status | Title | Author | Amazon Author Link |
+|---|---|---|---|
+| Currently reading | The Secret of Secrets (Robert Langdon series) | Dan Brown | https://www.amazon.com/Dan-Brown/e/B000AP9DSU/ |
+| Next | Meatless Days | Sara Suleri Goodyear | https://www.amazon.com/Sara-Suleri-Goodyear/e/B001HNZ1SK/ |
+
+### Art Panel
+
+Uses Fragonard's *A Young Girl Reading* (c. 1776) — secular, intimate, public domain. File: `images/art/girl-reading.jpg`. Uses the standard full-width stacked layout with `max-height:520px; object-fit:cover; object-position:center top`.
+
+---
+
 ## Pending / Future
 
 - **Jaun Elia** — add a featured sher or ghazal; card will become active and lose grey-out
 - **Personal poems** — section exists in HTML but is hidden; to be shown when Yousuf adds his own work
 - **Featured sher of the day** — discussed, deferred
+- **Books page image** — download `girl-reading.jpg` from NGA or Wikimedia Commons and save to `images/art/`
 
 ---
 
