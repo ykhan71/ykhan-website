@@ -60,11 +60,27 @@ export async function onRequest(context) {
       };
     }
 
+    // Extended hours
+    const marketState = meta.marketState || 'CLOSED';
+    const postMarketPrice = meta.postMarketPrice ? parseFloat(meta.postMarketPrice.toFixed(2)) : null;
+    const postMarketChange = meta.postMarketChange ? parseFloat(meta.postMarketChange.toFixed(2)) : null;
+    const postMarketChangePercent = meta.postMarketChangePercent ? parseFloat(meta.postMarketChangePercent.toFixed(2)) : null;
+    const preMarketPrice = meta.preMarketPrice ? parseFloat(meta.preMarketPrice.toFixed(2)) : null;
+    const preMarketChange = meta.preMarketChange ? parseFloat(meta.preMarketChange.toFixed(2)) : null;
+    const preMarketChangePercent = meta.preMarketChangePercent ? parseFloat(meta.preMarketChangePercent.toFixed(2)) : null;
+
     return new Response(JSON.stringify({
       ticker,
       price: parseFloat(currentPrice.toFixed(2)),
       currency: meta.currency || 'USD',
       name: meta.longName || meta.shortName || ticker,
+      marketState,
+      postMarketPrice,
+      postMarketChange,
+      postMarketChangePercent,
+      preMarketPrice,
+      preMarketChange,
+      preMarketChangePercent,
       '1D': delta(priceNDaysAgo(1)),
       '1W': delta(priceNDaysAgo(7)),
       '1M': delta(priceNDaysAgo(30)),

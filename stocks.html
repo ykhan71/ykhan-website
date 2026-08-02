@@ -213,6 +213,23 @@
       font-style: italic;
     }
 
+    /* ── Extended hours ── */
+    .extended-hours {
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      line-height: 1.4;
+    }
+
+    .extended-hours .ext-label {
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+    }
+
+    .extended-hours .ext-change.positive { color: #166534; }
+    .extended-hours .ext-change.negative { color: #991B1B; }
+
     /* ── Notes section ── */
     .market-notes {
       margin-top: 72px;
@@ -254,6 +271,43 @@
       font-size: 0.92rem;
       color: var(--ink-light);
       line-height: 1.75;
+    }
+
+    /* ── News items ── */
+    .news-ticker-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 2px 7px;
+      border-radius: 2px;
+      margin-bottom: 8px;
+    }
+
+    .note-content a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      transition: border-color 0.2s;
+    }
+
+    .note-content a:hover {
+      border-color: var(--accent);
+    }
+
+    .news-source {
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+      margin-top: 6px;
+    }
+
+    .news-empty {
+      padding: 32px 0;
+      font-size: 0.9rem;
+      color: var(--ink-faint);
+      font-style: italic;
     }
 
     @media (max-width: 640px) {
@@ -361,6 +415,7 @@
         <div class="stock-price-col">
           <div class="stock-current-price loading" id="price-AMD">Loading…</div>
           <span class="delta-pill loading" id="delta-AMD">…</span>
+          <div class="extended-hours" id="ext-AMD"></div>
         </div>
       </div>
 
@@ -376,12 +431,13 @@
           </div>
         </div>
         <div class="stock-thesis">
-          <h3>The AI infrastructure backbone</h3>
-          <p>Still the dominant pick-and-shovel play in AI. Blackwell demand appears strong. The question is how long the moat holds as competition intensifies.</p>
+          <h3>AI infrastructure, watching closely</h3>
+          <p>A significant player in AI compute infrastructure. Monitoring how the competitive landscape evolves as custom silicon and alternative architectures mature. Position sized accordingly.</p>
         </div>
         <div class="stock-price-col">
           <div class="stock-current-price loading" id="price-NVDA">Loading…</div>
           <span class="delta-pill loading" id="delta-NVDA">…</span>
+          <div class="extended-hours" id="ext-NVDA"></div>
         </div>
       </div>
 
@@ -403,6 +459,7 @@
         <div class="stock-price-col">
           <div class="stock-current-price loading" id="price-AVGO">Loading…</div>
           <span class="delta-pill loading" id="delta-AVGO">…</span>
+          <div class="extended-hours" id="ext-AVGO"></div>
         </div>
       </div>
 
@@ -424,6 +481,7 @@
         <div class="stock-price-col">
           <div class="stock-current-price loading" id="price-LRCX">Loading…</div>
           <span class="delta-pill loading" id="delta-LRCX">…</span>
+          <div class="extended-hours" id="ext-LRCX"></div>
         </div>
       </div>
 
@@ -434,41 +492,30 @@
           <div class="stock-name">SK hynix Inc.</div>
           <div class="conviction-dots">
             <div class="dot filled"></div><div class="dot filled"></div>
-            <div class="dot"></div><div class="dot"></div>
+            <div class="dot filled"></div><div class="dot filled"></div>
             <div class="dot"></div>
           </div>
         </div>
         <div class="stock-thesis">
-          <h3>Emerging position</h3>
-          <p>Early stage watch. Monitoring for catalyst before sizing up. Thesis still forming — will update as picture clarifies.</p>
+          <h3>HBM memory leader, MU comp</h3>
+          <p>SK hynix supplies the majority of HBM3E going into AI accelerators — a structural position in the AI memory stack. Entered at $170; holding through the cycle. MU is the closest comparable: if the DRAM upcycle continues, SKHY should follow.</p>
         </div>
         <div class="stock-price-col">
           <div class="stock-current-price loading" id="price-SKHY">Loading…</div>
           <span class="delta-pill loading" id="delta-SKHY">…</span>
+          <div class="extended-hours" id="ext-SKHY"></div>
         </div>
       </div>
 
-      <!-- Market Notes -->
+      <!-- Market Notes — live feed -->
       <section class="market-notes">
         <p class="notes-title">Market notes</p>
-
-        <div class="note-entry">
-          <div class="note-date">Aug 2026</div>
-          <div class="note-content">
-            <h3>Semiconductor cycle: where are we?</h3>
-            <p>AI infrastructure spend appears durable but the memory cycle recovery is the key variable to watch heading into H2. LRCX and the equipment names are a leading indicator — order trends will tell us before results do.</p>
+        <div id="news-feed">
+          <div class="note-entry" style="border:none; padding: 24px 0;">
+            <div class="note-date" style="color: var(--ink-faint); font-style:italic;">Loading…</div>
+            <div class="note-content"></div>
           </div>
         </div>
-
-        <div class="note-entry">
-          <div class="note-date">Jul 2026</div>
-          <div class="note-content">
-            <h3>On NVDA's moat</h3>
-            <p>CUDA's lock-in is real but shouldn't be taken for granted. AMD's ROCm improvements and custom ASIC proliferation (Google TPU, Amazon Trainium, Meta MTIA) are worth watching. Not a bear thesis — but something to track.</p>
-          </div>
-        </div>
-
-        <!-- Add more notes above this line -->
       </section>
 
     </div>
@@ -568,6 +615,35 @@
 
       deltaEl.textContent = formatted;
       deltaEl.className = `delta-pill ${isPositive ? 'positive' : 'negative'}`;
+
+      // Extended hours
+      const extEl = document.getElementById(`ext-${ticker}`);
+      if (extEl) {
+        const state = data.marketState;
+        let extPrice = null, extChange = null, extPct = null, extLabel = null;
+
+        if ((state === 'POST' || state === 'POSTPOST' || state === 'CLOSED') && data.postMarketPrice) {
+          extPrice = data.postMarketPrice;
+          extChange = data.postMarketChange;
+          extPct = data.postMarketChangePercent;
+          extLabel = 'After hours';
+        } else if ((state === 'PRE' || state === 'PREPRE') && data.preMarketPrice) {
+          extPrice = data.preMarketPrice;
+          extChange = data.preMarketChange;
+          extPct = data.preMarketChangePercent;
+          extLabel = 'Pre-market';
+        }
+
+        if (extPrice) {
+          const extPos = extChange >= 0;
+          const extVal = activeMode === '$'
+            ? `${extPos ? '+' : ''}$${Math.abs(extChange).toFixed(2)}`
+            : `${extPos ? '+' : ''}${extPct.toFixed(2)}%`;
+          extEl.innerHTML = `<span class="ext-label">${extLabel}</span> $${extPrice.toFixed(2)} <span class="ext-change ${extPos ? 'positive' : 'negative'}">${extVal}</span>`;
+        } else {
+          extEl.innerHTML = '';
+        }
+      }
     }
 
     function renderAll() {
@@ -595,6 +671,35 @@
     }
 
     loadAll();
+    loadNews();
+
+    /* ── News Feed ── */
+    async function loadNews() {
+      const feed = document.getElementById('news-feed');
+      try {
+        const res = await fetch('/api/news');
+        const articles = await res.json();
+        if (!Array.isArray(articles) || articles.length === 0) {
+          feed.innerHTML = '<p class="news-empty">No recent news found.</p>';
+          return;
+        }
+        feed.innerHTML = articles.map(a => {
+          const date = new Date(a.datetime * 1000);
+          const label = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          return `
+            <div class="note-entry">
+              <div class="note-date">${label}</div>
+              <div class="note-content">
+                <span class="news-ticker-tag">${a.ticker}</span>
+                <h3><a href="${a.url}" target="_blank" rel="noopener">${a.headline}</a></h3>
+                <p class="news-source">${a.source}</p>
+              </div>
+            </div>`;
+        }).join('');
+      } catch(e) {
+        feed.innerHTML = '<p class="news-empty">News unavailable — check back later.</p>';
+      }
+    }
 
     /* ── Modal ── */
     function openModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow = 'hidden'; }
