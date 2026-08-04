@@ -14,7 +14,8 @@ Personal website for Yousuf Khan, hosted on Cloudflare Pages, auto-deployed from
 | Poetry | `poetry.html` | Live |
 | Music | `music.html` | Live |
 | Books | `books.html` | Live |
-| Stocks | `stocks.html` | Live |
+| Signal | `signal.html` | Live |
+| Markets | `stocks.html` | Live |
 
 ---
 
@@ -135,9 +136,11 @@ Personal watchlist with thesis notes. Explicit disclaimer: "This is not financia
 
 ### Price Data
 
-- Fetched from `/api/stock/{ticker}` (Cloudflare Worker)
+- Fetched from `/api/stock/{ticker}` (Cloudflare Pages Function at `functions/api/stock/[ticker].js`)
+- Auto-refreshes every 30 seconds via `setInterval(loadAll, 30000)`
 - Displays: current price, delta pill (green/red), extended hours (pre-market or after-hours) when market is closed
 - Delta recalculates on period or mode change without re-fetching
+- News ticker tags removed from news feed (tags were assigned by query ticker, not article subject — misleading)
 
 ### Chart Modal
 
@@ -162,13 +165,14 @@ At ≤640px: price column hidden, note entries collapse to single column.
 
 Paintings appear on all pages. Images stored locally in `images/art/`. The first four pages use Osman Hamdi Bey; the Books page uses Fragonard (OHB's reading works have religious connotations — Quran reading — which doesn't fit a secular reading list).
 
-| Page | File | Painting | Artist | Year |
-|---|---|---|---|---|
-| `index.html` | `tortoise-trainer.jpg` | The Tortoise Trainer | Osman Hamdi Bey | 1906 |
-| `poetry.html` | `scholar.jpg` | Scholar | Osman Hamdi Bey | 1878 |
-| `music.html` | `musician-girls.jpg` | Two Musician Girls | Osman Hamdi Bey | 1880 |
-| `books.html` | `girl-reading.jpg` | A Young Girl Reading | Jean-Honoré Fragonard | c. 1776 |
-| `stocks.html` | `carpet-dealer.jpg` | The Carpet Dealer | Osman Hamdi Bey | 1888 |
+| Page | File | Painting | Artist | Year | Orientation |
+|---|---|---|---|---|---|
+| `index.html` | `tortoise-trainer.jpg` | The Tortoise Trainer | Osman Hamdi Bey | 1906 | Landscape |
+| `poetry.html` | `scholar.jpg` | Scholar | Osman Hamdi Bey | 1878 | Landscape |
+| `music.html` | `musician-girls.jpg` | Two Musician Girls | Osman Hamdi Bey | 1880 | Portrait |
+| `books.html` | `girl-reading.jpg` | A Young Girl Reading | Jean-Honoré Fragonard | c. 1776 | Portrait |
+| `signal.html` | `wanderer.jpg` | Wanderer above the Sea of Fog | Caspar David Friedrich | 1818 | Portrait |
+| `stocks.html` | `carpet-dealer.jpg` | The Carpet Dealer | Osman Hamdi Bey | 1888 | Landscape |
 
 **Downloading the books page painting:** Fragonard's *A Young Girl Reading* is public domain. Download high-res from the [National Gallery of Art](https://www.nga.gov/collection/art-object-page.46189.html) or [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Fragonard,_Jean-Honor%C3%A9_-_A_Young_Girl_Reading_-_c._1776.jpg). Save as `images/art/girl-reading.jpg`.
 
@@ -266,7 +270,70 @@ Personal reading list. Two sections: "Currently reading" and "Next". Each book d
 
 ### Art Panel
 
-Uses Fragonard's *A Young Girl Reading* (c. 1776) — secular, intimate, public domain. File: `images/art/girl-reading.jpg`. Uses the standard full-width stacked layout with `max-height:520px; object-fit:cover; object-position:center top`.
+Uses Fragonard's *A Young Girl Reading* (c. 1776) — secular, intimate, public domain. File: `images/art/girl-reading.jpg`. Portrait orientation — uses `max-width:560px; margin:0 auto` (never `max-height`/`object-fit:cover`, which would crop the subject).
+
+---
+
+## Signal Page (`signal.html`)
+
+### Purpose
+
+Curated reading list of articles, essays, and ideas on AI and what comes next. Not a blog — a selective, annotated list of things worth reading.
+
+### Layout
+
+1. **Page header** — eyebrow "Signal", h1 "Worth reading", subtitle
+2. **Art panel** — Friedrich's *Wanderer above the Sea of Fog* (portrait, `max-width:560px` centered)
+3. **Signal entries** — one section ("AI & the future"), entries listed newest first
+
+### Art Panel
+
+Caspar David Friedrich (1774–1840), *Wanderer above the Sea of Fog*, 1818. Kunsthalle Hamburg. File: `images/art/wanderer.jpg`. Portrait orientation — `max-width:560px; margin:0 auto`.
+
+The artist intro: "A figure standing on a peak, looking out at a vast and uncertain landscape below. A painting about confronting the unknown — which is the only honest position anyone can take right now about what AI becomes."
+
+### Entry Structure
+
+Each entry has:
+- Optional **"New" badge** — `display:inline-block` on its own line above the title (never `position:absolute`, which causes overlap)
+- **Title** — linked, serif, 1.2rem
+- **Meta** — source · author · date, in `var(--ink-faint)`
+- **Note** — italic serif annotation in `var(--ink)` (never `-light`)
+
+```html
+<div class="signal-entry">
+  <span style="display:inline-block; font-size:0.6rem; font-family:var(--font-sans); letter-spacing:0.1em; text-transform:uppercase; background:var(--accent); color:#fff; padding:2px 7px; border-radius:20px; margin-bottom:10px;">New</span>
+  <p class="signal-title"><a href="URL">Title</a></p>
+  <p class="signal-meta">Source &nbsp;·&nbsp; Author &nbsp;·&nbsp; Date</p>
+  <p class="signal-note">Annotation...</p>
+</div>
+```
+
+### Current Entries (newest first)
+
+| # | Title | Source | Author | Date | Note |
+|---|---|---|---|---|---|
+| 1 | AI's First Autonomous Cyber Attack | Medium | Ignacio de Gregorio | July 2026 | **New** badge |
+| 2 | AI 2027 | ai-2027.com | Daniel Kokotajlo et al. | — | — |
+| 3 | AI 2040: Plan A | ai-2040.com | Thomas Larsen, Daniel Kokotajlo et al. | — | — |
+
+---
+
+## Landing Page (`index.html`)
+
+### "What's Here" Section Cards
+
+Five cards in a 2-column CSS grid. The 5th card (Markets) spans full width with `grid-column: 1 / -1`.
+
+| # | Icon | Label | Link |
+|---|---|---|---|
+| 01 | ✦ | Poetry | `poetry.html` |
+| 02 | ♪ | Music | `music.html` |
+| 03 | 📖 | Books | `books.html` |
+| 04 | ∆ | Signal | `signal.html` |
+| 05 | ◈ | Markets | `stocks.html` |
+
+Icon rationale: ∆ (delta) chosen for Signal — the mathematical symbol for change, appropriate for a page tracking technology shifts and AI futures.
 
 ---
 
@@ -290,6 +357,49 @@ Uses Fragonard's *A Young Girl Reading* (c. 1776) — secular, intimate, public 
 
 1. **Read `design.md` before making any change** — always load this file first to understand current design decisions, standards, and constraints before touching any code.
 2. **Update `design.md` after any change** — after every edit, check whether it represents a design or requirement change and update this file accordingly. This keeps the document the single source of truth.
+
+---
+
+## API & Backend Rules (hard lessons)
+
+### Rule: Verify data shape before writing code
+
+Before modifying any code that depends on an external API (Yahoo Finance, Spotify, etc.):
+
+1. **Establish ground truth first.** Use an independent source (Alpha Vantage, browser dev tools, a known-good value) to confirm what the correct output should be. E.g., "AMD 1D delta should be +$8.49" before touching anything.
+2. **Inspect the actual API response.** Never assume field names. `chartPreviousClose` sounds like "yesterday's close" but is actually the close at the *start of the requested date range*. `regularMarketPreviousClose` sounds right but doesn't exist in the v8 chart API. Read the response, then write the code.
+3. **State the expected output before pushing.** Write it down: "after this change, AMD 1D should show ~+$8.49." Verify after deploy. If it doesn't match, don't push another guess — re-inspect.
+
+### Cloudflare Worker / Pages Functions
+
+- Functions live in `functions/api/` and deploy automatically with the site.
+- Cache header is `public, max-age=300` (5 minutes) — after a push, wait up to 5 min or test in a new incognito window.
+- Workers run in UTC timezone — `new Date()` is UTC, relevant for any midnight/day-boundary logic.
+
+### Yahoo Finance v8 Chart API — Known Behaviour
+
+Endpoint: `https://query1.finance.yahoo.com/v8/finance/chart/{TICKER}?interval=1d&range=Xy`
+
+- **`meta.regularMarketPrice`** — current live price. Reliable.
+- **`meta.chartPreviousClose`** — close from the day *before the chart range starts*, NOT yesterday's close. With `range=1y`, this is the close from ~1 year ago. **Do not use for 1D delta.**
+- **`meta.regularMarketPreviousClose`** — does NOT exist in the v8 chart API. Field name is a v7 quote API concept.
+- **`result.indicators.quote[0].close`** — array of historical daily closes. May or may not include today's partial candle depending on market state.
+
+### Correct approach for 1D delta
+
+Fetch two parallel requests:
+- `range=1y&interval=1d` → historical closes for 1W / 1M / 3M / 6M / YTD / 1Y periods
+- `range=1d&interval=1d` → `meta.chartPreviousClose` from *this* response = yesterday's close (because the chart window is today, so the previous period is yesterday)
+
+```javascript
+const [res1y, res1d] = await Promise.all([
+  fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1y`, fetchOpts),
+  fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`, fetchOpts)
+]);
+const prevClose1D = data1d?.chart?.result?.[0]?.meta?.chartPreviousClose || null;
+```
+
+This is the current implementation in `functions/api/stock/[ticker].js`.
 
 ---
 
