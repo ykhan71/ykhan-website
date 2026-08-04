@@ -8,17 +8,24 @@ export async function onRequest(context) {
   };
 
   try {
-    const url = `https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1y`;
-    const res = await fetch(url, {
+    const fetchOpts = {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
         'Accept': 'application/json'
       }
-    });
+    };
 
-    if (!res.ok) throw new Error(`Yahoo returned ${res.status}`);
+    // Fetch 1y for historical periods + 1d range to reliably get previous close
+    const [res1y, res1d] = await Promise.all([
+      fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1y`, fetchOpts),
+      fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${ticker}?interval=1d&range=1d`, fetchOpts)
+    ]);
 
-    const data = await res.json();
+    if (!res1y.ok) throw new Error(`Yahoo returned ${res1y.status}`);
+
+    const data = await res1y.json();
+    const data1d = res1d.ok ? await res1d.json() : null;
+
     const result = data?.chart?.result?.[0];
     if (!result) throw new Error('No data');
 
@@ -27,17 +34,11 @@ export async function onRequest(context) {
     const closes = result.indicators.quote[0].close;
     const currentPrice = meta.regularMarketPrice;
 
-    // Exclude today's incomplete candle from all lookups
-    const todayStart = new Date().setHours(0, 0, 0, 0) / 1000;
+    // Previous close: chartPreviousClose from a 1d-range request = yesterday's close
+    const prevClose1D = data1d?.chart?.result?.[0]?.meta?.chartPreviousClose || null;
 
-    // Previous close for 1D: last non-null close strictly before today
-    let prevClose1D = null;
-    for (let i = timestamps.length - 1; i >= 0; i--) {
-      if (closes[i] !== null && timestamps[i] < todayStart) {
-        prevClose1D = closes[i];
-        break;
-      }
-    }
+    // Exclude today's incomplete candle from all other period lookups
+    const todayStart = new Date().setHours(0, 0, 0, 0) / 1000;
 
     // Find closing price N calendar days ago (excluding today's incomplete candle)
     function priceNDaysAgo(days) {
