@@ -27,12 +27,13 @@ export async function onRequest(context) {
     const closes = result.indicators.quote[0].close;
     const currentPrice = meta.regularMarketPrice;
 
-    // Find closing price N calendar days ago
+    // Find closing price N calendar days ago (excluding today's incomplete candle)
+    const todayStart = new Date().setHours(0, 0, 0, 0) / 1000;
     function priceNDaysAgo(days) {
       const target = (Date.now() / 1000) - (days * 86400);
       let best = null, bestDiff = Infinity;
       for (let i = 0; i < timestamps.length; i++) {
-        if (closes[i] === null) continue;
+        if (closes[i] === null || timestamps[i] >= todayStart) continue;
         const diff = Math.abs(timestamps[i] - target);
         if (diff < bestDiff) { bestDiff = diff; best = closes[i]; }
       }
@@ -81,7 +82,7 @@ export async function onRequest(context) {
       preMarketPrice,
       preMarketChange,
       preMarketChangePercent,
-      '1D': delta(priceNDaysAgo(1)),
+      '1D': delta(meta.chartPreviousClose || priceNDaysAgo(1)),
       '1W': delta(priceNDaysAgo(7)),
       '1M': delta(priceNDaysAgo(30)),
       '3M': delta(priceNDaysAgo(90)),
