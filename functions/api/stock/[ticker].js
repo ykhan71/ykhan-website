@@ -82,7 +82,7 @@ export async function onRequest(context) {
       preMarketPrice,
       preMarketChange,
       preMarketChangePercent,
-      '1D': delta(meta.chartPreviousClose || priceNDaysAgo(1)),
+      '1D': delta(meta.regularMarketPreviousClose || meta.previousClose || priceNDaysAgo(1)),
       '1W': delta(priceNDaysAgo(7)),
       '1M': delta(priceNDaysAgo(30)),
       '3M': delta(priceNDaysAgo(90)),
